@@ -1,0 +1,89 @@
+# =============================
+# ASP.NET / Visual Studio / EF
+# =============================
+
+## User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Build results
+bin/
+obj/
+[Bb]uild/
+[Dd]ebug*/
+[Rr]elease*/
+
+## NuGet
+*.nupkg
+packages/
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+
+## Visual Studio
+.vs/
+.vscode/
+*.cache
+*.log
+
+## Entity Framework Migrations
+Migrations/*.Designer.cs
+Migrations/*.resx
+
+## Publish / Deploy
+*.Publish.xml
+publish/
+*.azurePubxml
+*.pubxml
+*.publishproj
+
+## IIS / local server
+*.dbmdl
+*.pidb
+*.psess
+*.vsp
+*.vspx
+*.vspscc
+*.vssscc
+*.scc
+*.launch.json
+
+## Others
+_ReSharper*/
+*.resharper
+*.sdf
+*.cache
+*.tlog
+*.pdb
+*.mdb
+*.bak
+*.bak2
+*.orig
+
+# SQL Server Express localdb
+*.mdf
+*.ldf
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# Images, temp files
+Thumbs.db
+ehthumbs.db
+.DS_Store
+*.tmp
+*.temp
+
+# npm / node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# JetBrains Rider
+.idea/

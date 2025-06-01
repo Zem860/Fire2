@@ -1,0 +1,313 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+
+@{
+    Layout = "~/Areas/Front/Views/Shared/_Layout.cshtml";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>國際縱火調查人員協會臺灣分會</title>
+
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="~/Content/images/favicon.ico" type="image/x-icon" />
+
+    <!-- CSS
+    ================================================== -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css">
+    <!-- Template styles-->
+    <link rel="stylesheet" href="~/Content/css/style.css">
+    <!-- Responsive styles-->
+    <link rel="stylesheet" href="~/Content/css/responsive.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="~/Content/css/font-awesome.min.css">
+    <!-- Animation -->
+    <link rel="stylesheet" href="~/Content/css/animate.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="~/Content/css/owl.carousel.css">
+    <link rel="stylesheet" href="~/Content/css/owl.theme.css">
+    <!-- Colorbox -->
+    <link rel="stylesheet" href="~/Content/css/colorbox.css">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div class="body-inner">
+        <!-- Carousel -->
+        <div id="main-slide" class="carousel slide" data-ride="carousel">
+
+            <!-- Indicators -->
+            <ol class="carousel-indicators visible-lg visible-md">
+                <li data-target="#main-slide" data-slide-to="0" class="active"></li>
+                <li data-target="#main-slide" data-slide-to="1"></li>
+            </ol><!--/ Indicators end-->
+            <!-- Carousel inner -->
+            <div class="carousel-inner">
+                <div class="item active" style="background-image: url(/Content/images/slider-main-01.jpg)">
+                </div><!--/ Carousel item end -->
+
+
+                <div class="item" style="background-image: url(/Content/images/slider-main-02.jpg)">
+                </div><!--/ Carousel item end -->
+
+            </div><!-- Carousel inner end-->
+            <!-- Controllers -->
+            <a class="left carousel-control" href="#main-slide" data-slide="prev">
+                <span><i class="fa fa-angle-left"></i></span>
+            </a>
+            <a class="right carousel-control" href="#main-slide" data-slide="next">
+                <span><i class="fa fa-angle-right"></i></span>
+            </a>
+
+            <span class="down-arrow-transparent"></span>
+
+        </div><!--/ Carousel end -->
+
+
+        <section id="news" class="news">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="latest-post">
+                            <img class="img-responsive" src="~/Content/images/newsimg-01.jpg" alt="img">
+                            <div class="post-body">
+                                <h4 class="post-title">
+                                    <a href="#">最新消息標題最新消息標題最新消息標題最新消息標題</a>
+                                </h4>
+                                <span class="post-item-date">
+                                    <i class="fa fa-clock-o"></i> 2016-03-28
+                                </span>
+                                <div class="post-text">
+                                    <p>最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文...</p>
+                                </div>
+                            </div>
+                            <a href="#" class="btn btn-primary">More</a>
+                        </div><!-- Latest post end -->
+                    </div><!-- 1st post col end -->
+
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="latest-post">
+                            <img class="img-responsive" src="~/Content/images/newsimg-02.jpg" alt="img">
+                            <div class="post-body">
+                                <h4 class="post-title">
+                                    <a href="#">最新消息標題最新消息標題最新消息標題最新消息標題</a>
+                                </h4>
+                                <span class="post-item-date">
+                                    <i class="fa fa-clock-o"></i> 2016-03-28
+                                </span>
+                                <div class="post-text">
+                                    <p>最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文...</p>
+                                </div>
+                            </div>
+                            <a href="#" class="btn btn-primary">More</a>
+                        </div><!-- Latest post end -->
+                    </div><!-- 2nd post col end -->
+
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="latest-post">
+                            <img class="img-responsive" src="~/Content/images/newsimg-03.jpg" alt="img">
+                            <div class="post-body">
+                                <h4 class="post-title">
+                                    <a href="#">最新消息標題最新消息標題最新消息標題最新消息標題</a>
+                                </h4>
+                                <span class="post-item-date">
+                                    <i class="fa fa-clock-o"></i> 2016-03-28
+                                </span>
+                                <div class="post-text">
+                                    <p>最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文...</p>
+                                </div>
+                            </div>
+                            <a href="#" class="btn btn-primary">More</a>
+                        </div><!-- Latest post end -->
+                    </div><!-- 3rd post col end -->
+
+
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="latest-post">
+                            <img class="img-responsive" src="~/Content/images/newsimg-04.jpg" alt="img">
+                            <div class="post-body">
+                                <h4 class="post-title">
+                                    <a href="#">最新消息標題最新消息標題最新消息標題最新消息標題</a>
+                                </h4>
+                                <span class="post-item-date">
+                                    <i class="fa fa-clock-o"></i> 2016-03-28
+                                </span>
+                                <div class="post-text">
+                                    <p>最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文...</p>
+                                </div>
+                            </div>
+                            <a href="#" class="btn btn-primary">More</a>
+                        </div><!-- Latest post end -->
+                    </div><!-- 4rd post col end -->
+
+                </div><!--/ Content row end -->
+            </div><!--/ Container end -->
+        </section><!--/ News end -->
+
+        <section id="facts" class="facts no-padding">
+            <div class="fact-img">
+                <div class="container">
+                    <div class="row ">
+                        <div class="col-md-12 fact-text">
+                            <ol>
+                                <li>從事火災調查之科技與學術研究，提昇我國火災調查科技研究水準，並落實研究成果。</li>
+                                <li>舉辦相關學術研討會及活動，提供技術資訊與發展之交流平台，參與並推動火災調查、預防及研究等之國內外交流活動。</li>
+                                <li>發行及出版火災調查、預防及研究等相關科技研究之學術刊物、書籍及媒體等。</li>
+                                <li>從事火災原因研究、危險因子診斷及災害預防等技術與系統之研發、相關資料庫之建立、及推廣和教育。</li>
+                                <li>提昇火災預防及調查專業人員之技術，並輔導會員取得國際證照。</li>
+                                <li>維護會員合法權益、端正會員職業道德與倫理、促進會員間之合作。</li>
+                                <li>關懷社會並維護社會公理正義。</li>
+                            </ol>
+                        </div><!-- Col end -->
+                    </div><!--/ Content row end -->
+                </div><!--/ Container end -->
+            </div><!--/ Container end -->
+        </section><!-- Facts end -->
+        <!-- Partners start -->
+        <section id="partners-area" class="partners-area">
+            <div class="container">
+
+                <div class="row">
+                    <div id="partners-carousel" class="col-sm-12 owl-carousel owl-theme text-center partners">
+                        <figure class="item partner-logo">
+                            <a href="#">
+                                <img class="img-responsive" src="~/Content/images/partner1.jpg" alt="client">
+                            </a>
+                        </figure>
+
+                        <figure class="item partner-logo">
+                            <a href="#">
+                                <img class="img-responsive" src="~/Content/images/partner2.jpg" alt="client">
+                            </a>
+                        </figure>
+
+                        <figure class="item partner-logo">
+                            <a href="#">
+                                <img class="img-responsive" src="~/Content/images/partner3.jpg" alt="client">
+                            </a>
+                        </figure>
+
+                        <figure class="item partner-logo">
+                            <a href="#">
+                                <img class="img-responsive" src="~/Content/images/partner4.jpg" alt="client">
+                            </a>
+                        </figure>
+
+                        <figure class="item partner-logo">
+                            <a href="#">
+                                <img class="img-responsive" src="~/Content/images/partner5.jpg" alt="client">
+                            </a>
+                        </figure>
+
+                        <figure class="item partner-logo">
+                            <a href="#">
+                                <img class="img-responsive" src="~/Content/images/partner.jpg" alt="client">
+                            </a>
+                        </figure>
+
+                        <figure class="item partner-logo">
+                            <a href="#">
+                                <img class="img-responsive" src="~/Content/images/partner2.jpg" alt="client">
+                            </a>
+                        </figure>
+
+                        <figure class="item partner-logo">
+                            <a href="#">
+                                <img class="img-responsive" src="~/Content/images/partner3.jpg" alt="client">
+                            </a>
+                        </figure>
+
+                        <figure class="item partner-logo">
+                            <a href="#">
+                                <img class="img-responsive" src="~/Content/images/partner4.jpg" alt="client">
+                            </a>
+                        </figure>
+
+                        <figure class="item partner-logo">
+                            <a href="#">
+                                <img class="img-responsive" src="~/Content/images/partner5.jpg" alt="client">
+                            </a>
+                        </figure>
+
+                    </div><!--/ Owl carousel end -->
+
+                </div><!--/ Content row end -->
+            </div><!--/ Container end -->
+        </section><!--/ Partners end -->
+        <!-- Footer start -->
+        <footer id="footer" class="footer">
+            <div class="container">
+
+                <div class="row copyright">
+                    <div class="col-xs-12 col-sm-7">
+                        <div class="copyright-info">
+                            <span>
+                                國際縱火調查人員協會臺灣分會版權所有<br>
+                                Copyright © 2016 International Association of Arson Investigators Taiwan Chapter. All Rights Reserved.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-4 col-md-push-1">
+
+                        <div class="footer-menu">
+                            <a class="btn btn-dark" href="#" title="財產權宣告">財產權宣告</a>
+                        </div>
+                    </div>
+                </div><!-- Copyright end -->
+
+                <div id="back-to-top" data-spy="affix" data-offset-top="10" class="back-to-top affix">
+                    <button class="btn btn-primary" title="Back to Top">
+                        <i class="fa fa-angle-double-up"></i>
+                    </button>
+                </div>
+
+            </div><!--/ Container end -->
+        </footer><!-- Footer end -->
+        <!-- Javascript Files
+        ================================================== -->
+        <!-- initialize jQuery Library -->
+        <script type="text/javascript" src="~/Scripts/js/jquery.js"></script>
+        <!-- Bootstrap jQuery -->
+        <script type="text/javascript" src="~/Scripts/js/bootstrap.min.js"></script>
+        <!-- Owl Carousel -->
+        <script type="text/javascript" src="~/Scripts/js/owl.carousel.min.js"></script>
+        <!-- Counter -->
+        <script type="text/javascript" src="~/Scripts/js/jquery.counterup.min.js"></script>
+        <!-- Waypoints -->
+        <script type="text/javascript" src="~/Scripts/js/waypoints.min.js"></script>
+        <!-- Color box -->
+        <script type="text/javascript" src="~/Scripts/js/jquery.colorbox.js"></script>
+        <!-- Isotope -->
+        <script type="text/javascript" src="~/Scripts/js/isotope.js"></script>
+        <script type="text/javascript" src="~/Scripts/js/ini.isotope.js"></script>
+        <!-- Google Map API Key Source -->
+        <!--<script src="http://maps.google.com/maps/api/js?sensor=false"></script>-->
+        <!-- For Google Map -->
+        <!-- Doc http://www.mkyong.com/google-maps/google-maps-api-hello-world-example/ -->
+        <!--<script type="text/javascript" src="~/Scripts/js/gmap3.min.js"></script>-->
+        <!-- Template custom -->
+        @*<script type="text/javascript" src="~/Scripts/js/custom.js"></script>*@
+
+    </div><!-- Body inner end -->
+</body>
+</html>

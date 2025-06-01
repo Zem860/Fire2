@@ -1,0 +1,8 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Fire2.Areas.Front.Models.AboutMenu>>
+
+<ul class="dropdown-menu" role="menu">
+    @foreach (var item in Model)
+    {
+        <li><a href="@item.Link">@item.AboutItems</a></li>
+    }
+</ul>
