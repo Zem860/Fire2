@@ -48,6 +48,7 @@
 </head>
 
 <body>
+    <textarea name="Content" id="editor"></textarea>
 
     <div class="body-inner">
         <div id="banner-area" class="banner-area" style="background-image:url('@Url.Content("~/Content/images/banner-bg.jpg")')">
@@ -81,11 +82,11 @@
                                 <h2 class="widget-title"><i class="fa fa-folder-open-o">&nbsp;</i>關於我們</h2>
                                 <ul class="arrow nav nav-tabs nav-stacked">
                                     @foreach (var item in ViewBag.SidebarData)
-                                            {
-                                    <li>
-                                        <a href="@item.Link">@item.AboutItems</a>
-                                 </li>
-                                }
+                                    {
+                                        <li>
+                                            <a href="@item.Link">@item.AboutItems</a>
+                                        </li>
+                                    }
 
                                 </ul>
                             </div><!-- Categories end -->

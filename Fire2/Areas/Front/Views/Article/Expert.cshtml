@@ -59,3 +59,16 @@
             </div>
         </div>
 </section>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'), {
+            toolbar: [
+                'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote',
+                '|', 'insertTable', 'undo', 'redo', '|', 'sourceEditing'
+            ],
+            language: 'zh'
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>

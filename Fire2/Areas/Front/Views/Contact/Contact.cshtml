@@ -1,0 +1,156 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Fire2.Areas.Front.Models.ContactViewModel>
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+
+@{
+    Layout = "~/Areas/Front/Views/Shared/_Layout.cshtml";
+    Html.EnableClientValidation(); // 啟用 client-side 驗證
+    Html.EnableUnobtrusiveJavaScript(); // 若你有 unobtrusive 驗證
+}
+
+<div class="body-inner">
+
+    <div id="banner-area" class="banner-area" style="background-image:url('@Url.Content("~/Content/images/banner-bg.jpg")')">
+        <!-- Subpage title start -->
+        <div class="banner-text text-right">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ul class="breadcrumb">
+                            <li>首頁</li>
+                            <li>聯絡我們</li>
+                            <li><a href="#"> 聯絡我們</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Subpage title end -->
+    </div>
+
+    <section id="main-container" class="main-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="sidebar sidebar-right">
+                        <div class="widget">
+                            <h2 class="widget-title"><i class="fa fa-folder-open-o">&nbsp;</i>聯絡我們</h2>
+                            <ul class="arrow nav nav-tabs nav-stacked">
+                                <li class="active"><a href="#">聯絡我們</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                    <h2 class="page-title">聯絡我們 </h2>
+                    <hr class="botmargin-min" />
+
+                    @using (Html.BeginForm("Contact", "Contact", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Name, htmlAttributes: new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-7">
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "請輸入姓名" })
+                            </div>
+                            <div class="col-sm-3">
+                                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "alertred" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Gender, htmlAttributes: new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-7">
+                                @Html.EnumDropDownListFor(m => m.Gender, new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-3">
+                                @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "alertred" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Phone, htmlAttributes: new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-7">
+                                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "請輸入電話" })
+                            </div>
+                            <div class="col-sm-3">
+                                @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "alertred" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.EmailAddress, htmlAttributes: new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-7">
+                                @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control", placeholder = "請輸入 Email" })
+                            </div>
+                            <div class="col-sm-3">
+                                @Html.ValidationMessageFor(m => m.EmailAddress, "", new { @class = "alertred" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Captcha, htmlAttributes: new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-3">
+                                @Html.TextBoxFor(m => m.Captcha, new { @class = "form-control", placeholder = "請輸入驗證碼" })
+                            </div>
+                            <div class="col-sm-4">
+                                <img src="~/Content/images/test.jpg" alt="驗證碼圖片" />
+                            </div>
+                            <div class="col-sm-3">
+                                @Html.ValidationMessageFor(m => m.Captcha, "", new { @class = "alertred" })
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button class="btn btn-primary solid blank" type="submit">送 出</button>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="tags-area clearfix">
+                        <div class="share-items pull-right">
+                            <ul class="post-social-icons unstyled">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer" class="footer">
+        <div class="container">
+            <div class="row copyright">
+                <div class="col-xs-12 col-sm-7">
+                    <div class="copyright-info">
+                        <span>
+                            國際縱火調查人員協會臺灣分會版權所有<br />
+                            Copyright © 2016 International Association of Arson Investigators Taiwan Chapter. All Rights Reserved.
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-push-1">
+                    <div class="footer-menu">
+                        <a class="btn btn-dark" href="#" title="財產權宣告">財產權宣告</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="back-to-top" data-spy="affix" data-offset-top="10" class="back-to-top affix">
+                <button class="btn btn-primary" title="Back to Top">
+                    <i class="fa fa-angle-double-up"></i>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+</div>

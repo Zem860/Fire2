@@ -130,10 +130,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Front\Controllers\ArticleController.cs" />
+    <Compile Include="Areas\Front\Controllers\ContactController.cs" />
     <Compile Include="Areas\Front\Controllers\HomeController.cs" />
     <Compile Include="Areas\Front\Controllers\SharedController.cs" />
     <Compile Include="Areas\Front\FrontAreaRegistration.cs" />
     <Compile Include="Areas\Front\Models\AboutMenu.cs" />
+    <Compile Include="Areas\Front\Models\ContactViewModel.cs" />
     <Compile Include="Areas\Front\Models\Experts.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -192,6 +194,7 @@
     <Content Include="Areas\Front\Views\Article\Organization.cshtml" />
     <Content Include="Areas\Front\Views\Article\Expert.cshtml" />
     <Content Include="Areas\Front\Views\Article\ExpertDetail.cshtml" />
+    <Content Include="Areas\Front\Views\Contact\Contact.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
