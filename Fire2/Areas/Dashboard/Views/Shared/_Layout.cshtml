@@ -1,0 +1,94 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using System.Web.Optimization
+@using System.Web.Mvc.Html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <style>
+        .nav-link:hover {
+            background-color: aquamarine;
+            font-weight: bold;
+            color: black;
+        }
+    </style>
+
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark d-md-none">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">@Html.ActionLink("Dashboard", "Index", "Home", new { area = "Dashboard" }, new { @class = "navbar-brand" })</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <nav class="w-100 h-25 bg-dark text-white ps-5  d-none d-md-block">
+        <ul class="list-unstyled">
+            <li class="p-3"> @Html.ActionLink("Dashboard", "Index", "Home", new { area = "Dashboard" }, new { @class = "navbar-brand" })</li>
+
+        </ul>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- 左側 Sidebar (md以上固定顯示) -->
+            <nav class="col-md-3 col-lg-2 d-none d-md-block bg-light sidebar" style="min-height: 100vh;">
+                <div class="pt-3 px-3">
+                    <h5>Menu</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            @Html.ActionLink("首頁", "Index", "Home", new { area = "Dashboard" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("關於", "About", "Home", new { area = "Dashboard" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("專家", "Index", "Experts", new { area = "Dashboard" }, new { @class = "nav-link" })
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- RWD Offcanvas Sidebar（小螢幕顯示） -->
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasSidebarLabel">Menu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            @Html.ActionLink("首頁", "Index", "Home", new { area = "Dashboard" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("關於", "About", "Home", new { area = "Dashboard" }, new { @class = "nav-link" })
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <!-- Main content -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 py-4">
+                @RenderBody()
+                <hr />
+                <footer>
+                    <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
