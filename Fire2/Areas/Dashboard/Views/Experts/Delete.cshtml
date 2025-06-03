@@ -1,8 +1,6 @@
-﻿@model Fire2.Areas.Front.Models.Experts
-
-@{
-    ViewBag.Title = "Delete";
-}
+﻿@inherits System.Web.Mvc.WebViewPage<Fire2.Areas.Front.Models.Experts>
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
 
 <h2>Delete</h2>
 
@@ -36,11 +34,27 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PostContent)
+            @Html.DisplayNameFor(model => model.Education)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PostContent)
+            @Html.DisplayFor(model => model.Education)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Introduction)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Introduction)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Others)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Others)
         </dd>
 
         <dt>

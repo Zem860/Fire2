@@ -47,7 +47,7 @@ namespace Fire2.Areas.Dashboard.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,ImgUrl,Title,PostContent,CreatedAt,UpdatedAt")] Experts experts)
+        public ActionResult Create([Bind(Include = "Id,Name,ImgUrl,Title,Education,Introduction,Others,CreatedAt,UpdatedAt")] Experts experts)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace Fire2.Areas.Dashboard.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,ImgUrl,Title,PostContent,CreatedAt,UpdatedAt")] Experts experts)
+        public ActionResult Edit([Bind(Include = "Id,Name,ImgUrl,Title,Education,Introduction,Others,CreatedAt,UpdatedAt")] Experts experts)
         {
             if (ModelState.IsValid)
             {

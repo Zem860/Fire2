@@ -1,10 +1,9 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Fire2.Areas.Front.Models.Experts>>
-
 @using System.Web.Mvc
 @using System.Web.Mvc.Html
 
 @{
-    ViewBag.Title = "Index";
+    Layout = "~/Areas/Dashboard/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
@@ -23,7 +22,15 @@
         <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
-
+        <th>
+            @Html.DisplayNameFor(model => model.Education)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Introduction)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Others)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.CreatedAt)
         </th>
@@ -40,13 +47,21 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                <img class="w-25 h-25" src="@item.ImgUrl" alt="Alternate Text" />
+
+                <img src="@Url.Content(item.ImgUrl)" alt="專家圖片" style="max-width: 200px;" />
+
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PostContent)
+                @Html.DisplayFor(modelItem => item.Education)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Introduction)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Others)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedAt)

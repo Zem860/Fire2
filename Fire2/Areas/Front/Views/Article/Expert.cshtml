@@ -19,43 +19,16 @@
                         <div class="ts-service-wrapper">
                             <div class="ts-service-image-wrapper">
                                 <span class="ts-service-image">
-                                    <a href="@Url.Action("ExpertDetail", "Article", new { area = "Front", id = experts.Id })" title=@experts.Name><img class="img-responsive" src=@experts.ImgUrl alt=@experts.Name></a>
+                                    <a href="@Url.Action("ExpertDetail", "Article", new { area = "Front", id = experts.Id })" title=@experts.Name><img class="img-fluid" style="height: 300px;width:250px; object-fit: cover;" src=@experts.ImgUrl alt=@experts.Name></a>
                                 </span>
                             </div>
                             <div class="ts-service-info">
-                                <h3><a href="master_show.html">陳金蓮</a></h3>
-                                <p>現職：中央警察大學消防系教授 </p>
+                                <h3><a href="master_show.html">@experts.Name</a></h3>
+                                <p>現職：@experts.Title </p>
                             </div>
                         </div>
                     </div><!-- Col 1 end -->
                 }
-                <div class="col-md-4">
-                    <div class="ts-service-wrapper">
-                        <div class="ts-service-image-wrapper">
-                            <span class="ts-service-image">
-                                <a href="master_show.html" title="陳金蓮"><img class="img-responsive" src="images/pro1.jpg" alt="陳金蓮"></a>
-                            </span>
-                        </div>
-                        <div class="ts-service-info">
-                            <h3><a href="master_show.html">陳金蓮</a></h3>
-                            <p>現職：中央警察大學消防系教授 </p>
-                        </div>
-                    </div>
-                </div><!-- Col 1 end -->
-                <div class="col-md-4">
-                    <div class="ts-service-wrapper">
-                        <div class="ts-service-image-wrapper">
-                            <span class="ts-service-image">
-                                <a href="master_show.html" title="黃敬德"><img class="img-responsive" src="images/pro2.jpg" alt="黃敬德"></a>
-                            </span>
-                        </div>
-                        <div class="ts-service-info">
-                            <h3><a href="master_show.html">黃敬德</a></h3>
-                            <p>現職：中央警察大學消防系副教授 </p>
-                        </div>
-                    </div>
-                </div><!-- Col 2 end -->
-
             </div>
         </div>
 </section>

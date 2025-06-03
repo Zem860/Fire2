@@ -1,8 +1,7 @@
-﻿@model Fire2.Areas.Front.Models.Experts
+﻿@inherits System.Web.Mvc.WebViewPage<Fire2.Areas.Front.Models.ContactViewModel>
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
 
-@{
-    ViewBag.Title = "Details";
-}
 
 <h2>Details</h2>
 
@@ -35,11 +34,27 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PostContent)
+            @Html.DisplayNameFor(model => model.Education)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PostContent)
+            @Html.DisplayFor(model => model.Education)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Introduction)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Introduction)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Others)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Others)
         </dd>
 
         <dt>
