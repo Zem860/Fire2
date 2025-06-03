@@ -28,7 +28,10 @@ namespace Fire2.Areas.Front.Models
         public string ImgUrl { get; set; }
 
         [Display(Name = "職稱")]
-        public string Title { get; set; } 
+        public string Title { get; set; }
+
+        [Column(TypeName = "nvarchar(max)")] // 或 "ntext" / "text"，但 nvarchar(max) 比較現代
+        public string PostContent { get; set; }
 
         [Column(TypeName = "DATETIME")]
         [Display(Name = "創建時間")]
