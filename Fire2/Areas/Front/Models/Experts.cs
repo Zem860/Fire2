@@ -24,7 +24,6 @@ namespace Fire2.Areas.Front.Models
         [Display(Name = "姓名")]
         public string Name { get; set; }
 
-        [Required]
         [Column(TypeName = "nvarchar")]
         [MaxLength(300)]
         [Display(Name = "專家照片")]

@@ -50,15 +50,19 @@ namespace Fire2.Areas.Dashboard.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Experts experts, HttpPostedFileBase ImgUrl)
         {
-            if (ImgUrl == null || ImgUrl.ContentLength == 0)
-            {
-                ModelState.AddModelError("ImgUrl", "請上傳專家照片");
-            }
+
 
             if (ModelState.IsValid)
             {
-                string fileName = FileHelper.SaveUpImage(ImgUrl);
-                experts.ImgUrl = $"Uploads/Experts/{fileName}";
+                if (ImgUrl == null || ImgUrl.ContentLength == 0)
+                {
+                    experts.ImgUrl = "/Uploads/Experts/default.jpg"; // 預設圖片
+                } else
+                {
+                    string fileName = FileHelper.SaveUpImage(ImgUrl);
+                    experts.ImgUrl = $"Uploads/Experts/{fileName}";
+                }
+
 
                 db.Experts.Add(experts);
                 db.SaveChanges();
@@ -88,11 +92,34 @@ namespace Fire2.Areas.Dashboard.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,ImgUrl,Title,Education,Introduction,Others,CreatedAt,UpdatedAt")] Experts experts)
+        public ActionResult Edit( Experts experts, HttpPostedFileBase ImgUrl)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(experts).State = EntityState.Modified;
+                var expertInDb = db.Experts.Find(experts.Id);
+                if (expertInDb == null)
+                {
+                    return HttpNotFound();
+                }
+                if (ImgUrl!=null && ImgUrl.ContentLength > 0)
+                {
+                    string fileName = FileHelper.SaveUpImage(ImgUrl);
+                    experts.ImgUrl = $"/Uploads/Experts/{fileName}";
+                }
+                else
+                {
+                    experts.ImgUrl = expertInDb.ImgUrl;
+                }
+                expertInDb.Name = experts.Name;
+                expertInDb.ImgUrl = experts.ImgUrl;
+                expertInDb.Title = experts.Title;
+                expertInDb.Education = experts.Education;
+                expertInDb.Introduction = experts.Introduction;
+                expertInDb.Others = experts.Others;
+                expertInDb.UpdatedAt = DateTime.UtcNow;
+                expertInDb.CreatedAt = expertInDb.CreatedAt; // 保持創建時間不變
+
+                //db.Entry(experts).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

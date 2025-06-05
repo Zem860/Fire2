@@ -197,6 +197,10 @@
     <Compile Include="Migrations\202506031529455_changeExpertModel.Designer.cs">
       <DependentUpon>202506031529455_changeExpertModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202506050721039_removeRequiredForImgUrl.cs" />
+    <Compile Include="Migrations\202506050721039_removeRequiredForImgUrl.Designer.cs">
+      <DependentUpon>202506050721039_removeRequiredForImgUrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Model1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -666,6 +670,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202506031529455_changeExpertModel.resx">
       <DependentUpon>202506031529455_changeExpertModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506050721039_removeRequiredForImgUrl.resx">
+      <DependentUpon>202506050721039_removeRequiredForImgUrl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
