@@ -160,6 +160,7 @@
     <Compile Include="Areas\Dashboard\Controllers\ExpertsController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\HomeController.cs" />
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
+    <Compile Include="Areas\Dashboard\Helper\FileHelper.cs" />
     <Compile Include="Areas\Front\Controllers\ArticleController.cs" />
     <Compile Include="Areas\Front\Controllers\ContactController.cs" />
     <Compile Include="Areas\Front\Controllers\HomeController.cs" />
@@ -618,6 +619,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Uploads\Experts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

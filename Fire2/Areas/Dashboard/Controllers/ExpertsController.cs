@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Fire2.Areas.Front.Models;
 using Fire2.Models;
+using Fire2.Areas.Dashboard.Helper;
 
 namespace Fire2.Areas.Dashboard.Controllers
 {
@@ -47,10 +48,18 @@ namespace Fire2.Areas.Dashboard.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,ImgUrl,Title,Education,Introduction,Others,CreatedAt,UpdatedAt")] Experts experts)
+        public ActionResult Create(Experts experts, HttpPostedFileBase ImgUrl)
         {
+            if (ImgUrl == null || ImgUrl.ContentLength == 0)
+            {
+                ModelState.AddModelError("ImgUrl", "請上傳專家照片");
+            }
+
             if (ModelState.IsValid)
             {
+                string fileName = FileHelper.SaveUpImage(ImgUrl);
+                experts.ImgUrl = $"Uploads/Experts/{fileName}";
+
                 db.Experts.Add(experts);
                 db.SaveChanges();
                 return RedirectToAction("Index");

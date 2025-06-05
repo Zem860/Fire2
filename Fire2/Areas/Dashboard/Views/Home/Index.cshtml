@@ -1,1 +1,7 @@
 ﻿@inherits System.Web.Mvc.WebViewPage
+
+<!--//如果沒有admin就回去首頁-->
+@*@if (Session["user"] == null)
+{
+    Response.Redirect("/Front/Home/Index");
+}*@

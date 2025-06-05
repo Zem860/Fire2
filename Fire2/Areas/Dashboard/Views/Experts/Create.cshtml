@@ -5,7 +5,7 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Experts", FormMethod.Post, new {enctype="multipart/form-data",  area = "Dashboard" }))
 {
     @Html.AntiForgeryToken()
 
@@ -22,9 +22,11 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ImgUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Profile Photo Upload", htmlAttributes: new { @class="control-label col-md-2"})
+            @*@Html.LabelFor(model => model.ImgUrl, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ImgUrl, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.EditorFor(model => model.ImgUrl, new { htmlAttributes = new { @class = "form-control" } })*@
+                <input type="file" name="ImgUrl" class="form-control" />
                 @Html.ValidationMessageFor(model => model.ImgUrl, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -40,7 +42,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Education, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Education, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Education, new { @class = "form-control", id = "editor" })
+
+                @*@Html.EditorFor(model => model.Education, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.Education, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -48,7 +52,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Introduction, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Introduction, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Introduction, new { @class = "form-control", id = "editor2" })
+
+                @*@Html.EditorFor(model => model.Introduction, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.Introduction, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -56,7 +62,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Others, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Others, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Others, new { @class = "form-control", id = "editor3" })
+
+                @*@Html.EditorFor(model => model.Others, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.Others, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -88,3 +96,36 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+<script>
+    const ckOptions = {
+        licenseKey: 'GPL',
+        ckfinder: {
+            uploadUrl: 'https://ckeditor.com/apps/ckfinder/3.5.0/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json'
+        },
+        toolbar: {
+            items: [
+                'ckfinder', '|',
+                'exportPDF', 'exportWord', '|',
+                'findAndReplace', 'selectAll', '|',
+                'heading', '|',
+                'bold', 'italic', 'strikethrough', 'underline', 'code', 'subscript', 'superscript', 'removeFormat', '|',
+                'bulletedList', 'numberedList', 'todoList', '|',
+                'outdent', 'indent', '|',
+                'undo', 'redo',
+                '-',
+                'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
+                'alignment', '|',
+                'link', 'insertImage', 'blockQuote', 'insertTable', 'mediaEmbed', 'codeBlock', 'htmlEmbed', '|',
+                'specialCharacters', 'horizontalLine', 'pageBreak', '|',
+                'textPartLanguage', '|',
+                'sourceEditing'
+            ]
+        }
+    };
+
+    ClassicEditor.create(document.querySelector('#editor'), ckOptions).catch(e => console.error(e));
+    ClassicEditor.create(document.querySelector('#editor2'), ckOptions).catch(e => console.error(e));
+    ClassicEditor.create(document.querySelector('#editor3'), ckOptions).catch(e => console.error(e));
+</script>
+
