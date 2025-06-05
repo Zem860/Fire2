@@ -1,8 +1,10 @@
-﻿@inherits System.Web.Mvc.WebViewPage
+﻿
+@inherits System.Web.Mvc.WebViewPage<Fire2.Areas.Front.Models.Experts>
 
 @{
     Layout = "~/Areas/Front/Views/Shared/_Layout.cshtml";
 }
+
 
 <section id="main-container" class="main-container">
     <div class="container">
@@ -16,15 +18,15 @@
                         <div class="col-md-4 col-sm-12 col-xs-12">
                             <div class="ts-service-image-wrapper">
                                 <span class="ts-service-image">
-                                    <img class="img-responsive" src="images/pro1.jpg" alt="陳金蓮">
+                                    <img class="img-responsive" src="@Url.Content(Model.ImgUrl)" alt=@Model.Name>
                                 </span>
                             </div>
                         </div>
                         <div class="col-md-8 col-sm-12 col-xs-12">
                             <div class="ts-service-info">
-                                <p></p><h3>陳金蓮</h3><p></p>
-                                <p><span>現職：</span>中央警察大學消防系教授 </p>
-                                <p><span>學歷：</span>中央警察大學警政研究所消防組碩士 、中央警察大學消防學系學士 </p>
+                                <p></p><h3>@Model.Name</h3><p></p>
+                                <p><span>現職：</span>@Model.Title </p>
+                                <p><strong>學歷：</strong>@Html.Raw(Model.Education)</p>
                                 <p>
                                     <span>基本介紹：</span>
                                     <br> 1.曾經負責全台北市火災案件調查，編列建置全國第一套縱火劑鑑定系統.
