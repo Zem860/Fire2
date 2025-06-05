@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Fire2.Areas.Front.Models;
 using Fire2.Models;
 using Fire2.Areas.Dashboard.Helper;
+using MvcPaging;
 
 namespace Fire2.Areas.Dashboard.Controllers
 {
@@ -17,9 +18,31 @@ namespace Fire2.Areas.Dashboard.Controllers
         private Model1 db = new Model1();
 
         // GET: Dashboard/Experts
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.Experts.ToList());
+            if (!page.HasValue)
+            {
+                page = 0;
+                //套件邏輯規定第一頁=0
+            }
+            else
+            {
+                page--;
+            }
+            int pageSize = 1;
+            var experts = db.Experts.OrderByDescending(x => x.CreatedAt).AsQueryable();
+            //我到目前為止都只是指令還沒執行，還沒讓資料庫執行且實體化(toList就是去資料庫實際撈資料)，也就是可以不斷加上篩選條件
+            //單位名稱關鍵字查詢
+            string name = "";
+            if (Session["Name"] != null)
+            {
+                name = Session["Name"].ToString();//Session物件要用.ToString才會變成字串
+                experts = experts.Where(x => x.Name.Contains(name));
+            }
+
+
+            return View(experts.ToPagedList(page.Value, pageSize));
+            //return View(db.Experts.ToList());
         }
 
         // GET: Dashboard/Experts/Details/5
