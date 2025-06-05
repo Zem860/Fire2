@@ -28,6 +28,12 @@ namespace Fire2.Areas.Front.Models
         [EmailAddress(ErrorMessage = "Email 格式錯誤")]
         [Display(Name = "E-mail")]
         public string EmailAddress { get; set; }
+
+        [Required(ErrorMessage = "請輸入內容")]
+
+        [Display(Name = "詢問內容")]
+        public string ContactContent { get; set; }
+
         [Required(ErrorMessage = "驗證碼必填")]
         [Display(Name = "驗證碼")]
         public string Captcha { get; set; }

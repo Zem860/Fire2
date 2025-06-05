@@ -45,71 +45,94 @@
                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                     <h2 class="page-title">聯絡我們 </h2>
                     <hr class="botmargin-min" />
-
-                    @using (Html.BeginForm("Contact", "Contact", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    @if (TempData["Success"] == null)
                     {
-                        @Html.AntiForgeryToken()
+                        using (Html.BeginForm("SubmitContact", "Contact", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
 
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.Name, htmlAttributes: new { @class = "col-sm-2 control-label" })
-                            <div class="col-sm-7">
-                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "請輸入姓名" })
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Name, htmlAttributes: new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "請輸入姓名" })
+                                </div>
+                                <div class="col-sm-3">
+                                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "alertred" })
+                                </div>
                             </div>
-                            <div class="col-sm-3">
-                                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "alertred" })
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Gender, htmlAttributes: new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.EnumDropDownListFor(m => m.Gender, new { @class = "form-control" })
+                                </div>
+                                <div class="col-sm-3">
+                                    @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "alertred" })
+                                </div>
                             </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Phone, htmlAttributes: new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "請輸入電話" })
+                                </div>
+                                <div class="col-sm-3">
+                                    @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "alertred" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.EmailAddress, htmlAttributes: new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control", placeholder = "請輸入 Email" })
+                                </div>
+                                <div class="col-sm-3">
+                                    @Html.ValidationMessageFor(m => m.EmailAddress, "", new { @class = "alertred" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ContactContent, htmlAttributes: new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.TextAreaFor(m => m.ContactContent, new { @class = "form-control", placeholder = "請輸入內容", rows = "6", cols = "60" })
+                                </div>
+                                <div class="col-sm-3">
+                                    @Html.ValidationMessageFor(m => m.ContactContent, "", new { @class = "alertred" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Captcha, htmlAttributes: new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-3">
+                                    @Html.TextBoxFor(m => m.Captcha, new { @class = "form-control", placeholder = "請輸入驗證碼" })
+                                </div>
+                                <div class="col-sm-4">
+                                    <img src="@Url.Action("Image", "Captcha", new { area = "Front" })" alt="驗證碼" onclick="this.src='@Url.Action("Image", "Captcha", new { area = "Front" })?' + Math.random()" />
+
+                                </div>
+                                <div class="col-sm-3">
+                                    @Html.ValidationMessageFor(m => m.Captcha, "", new { @class = "alertred" })
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button class="btn btn-primary solid blank" type="submit">送 出</button>
+                                </div>
+                            </div>
+                        }
+
+                    }
+                    else
+                    {
+                        <div class="alert alert-success text-center" style="background-color:#337ab7; color:white;">
+                            <strong>@TempData["Success"]</strong>
                         </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.Gender, htmlAttributes: new { @class = "col-sm-2 control-label" })
-                            <div class="col-sm-7">
-                                @Html.EnumDropDownListFor(m => m.Gender, new { @class = "form-control" })
-                            </div>
-                            <div class="col-sm-3">
-                                @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "alertred" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.Phone, htmlAttributes: new { @class = "col-sm-2 control-label" })
-                            <div class="col-sm-7">
-                                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "請輸入電話" })
-                            </div>
-                            <div class="col-sm-3">
-                                @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "alertred" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.EmailAddress, htmlAttributes: new { @class = "col-sm-2 control-label" })
-                            <div class="col-sm-7">
-                                @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control", placeholder = "請輸入 Email" })
-                            </div>
-                            <div class="col-sm-3">
-                                @Html.ValidationMessageFor(m => m.EmailAddress, "", new { @class = "alertred" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.Captcha, htmlAttributes: new { @class = "col-sm-2 control-label" })
-                            <div class="col-sm-3">
-                                @Html.TextBoxFor(m => m.Captcha, new { @class = "form-control", placeholder = "請輸入驗證碼" })
-                            </div>
-                            <div class="col-sm-4">
-                                <img src="@Url.Action("Image", "Captcha", new { area = "Front" })" alt="驗證碼" onclick="this.src='@Url.Action("Image", "Captcha", new { area = "Front" })?' + Math.random()" />
-
-                            </div>
-                            <div class="col-sm-3">
-                                @Html.ValidationMessageFor(m => m.Captcha, "", new { @class = "alertred" })
-                            </div>
-                        </div>
-
-                        <hr />
-
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button class="btn btn-primary solid blank" type="submit">送 出</button>
-                            </div>
+                        <div class="text-center">
+                            如有任何問題或意見，請聯繫再我們。感謝您！
                         </div>
                     }
 
