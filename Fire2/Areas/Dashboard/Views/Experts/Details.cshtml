@@ -1,4 +1,4 @@
-﻿@inherits System.Web.Mvc.WebViewPage<Fire2.Areas.Front.Models.ContactViewModel>
+﻿@inherits System.Web.Mvc.WebViewPage<Fire2.Areas.Front.Models.Experts>
 @using System.Web.Mvc
 @using System.Web.Mvc.Html
 
@@ -22,7 +22,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ImgUrl)
+            <img src="@Url.Content(Model.ImgUrl)" alt="專家照片" style="max-height: 150px;" />
+
         </dd>
 
         <dt>
@@ -38,7 +39,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Education)
+            @Html.Raw(Model.Education)
         </dd>
 
         <dt>
@@ -46,7 +47,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Introduction)
+            @Html.Raw(Model.Introduction)
         </dd>
 
         <dt>
@@ -54,7 +55,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Others)
+           @Html.Raw(Model.Others)
         </dd>
 
         <dt>
