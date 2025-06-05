@@ -165,6 +165,7 @@
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
     <Compile Include="Areas\Dashboard\Helper\FileHelper.cs" />
     <Compile Include="Areas\Front\Controllers\ArticleController.cs" />
+    <Compile Include="Areas\Front\Controllers\CaptchaController.cs" />
     <Compile Include="Areas\Front\Controllers\ContactController.cs" />
     <Compile Include="Areas\Front\Controllers\HomeController.cs" />
     <Compile Include="Areas\Front\Controllers\SharedController.cs" />
@@ -626,6 +627,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Front\Views\Captcha\" />
     <Folder Include="Uploads\Experts\" />
   </ItemGroup>
   <ItemGroup>

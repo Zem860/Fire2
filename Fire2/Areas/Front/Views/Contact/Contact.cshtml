@@ -96,7 +96,8 @@
                                 @Html.TextBoxFor(m => m.Captcha, new { @class = "form-control", placeholder = "請輸入驗證碼" })
                             </div>
                             <div class="col-sm-4">
-                                <img src="~/Content/images/test.jpg" alt="驗證碼圖片" />
+                                <img src="@Url.Action("Image", "Captcha", new { area = "Front" })" alt="驗證碼" onclick="this.src='@Url.Action("Image", "Captcha", new { area = "Front" })?' + Math.random()" />
+
                             </div>
                             <div class="col-sm-3">
                                 @Html.ValidationMessageFor(m => m.Captcha, "", new { @class = "alertred" })
