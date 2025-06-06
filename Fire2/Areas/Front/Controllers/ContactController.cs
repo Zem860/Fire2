@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Fire2.Areas.Front.Models;
+using Fire2.Areas.Front.Helper;
 
 namespace Fire2.Areas.Front.Controllers
 {
@@ -29,8 +30,10 @@ namespace Fire2.Areas.Front.Controllers
             {
                 return View("Contact");
             }
-            Session.Remove("CaptchaCode"); // ✅ 驗證完清除
-            TempData["Success"] = "您的意見已經送出！";
+
+             EmailService.SendContactMessage(model);
+             Session.Remove("CaptchaCode"); // ✅ 驗證完清除
+             TempData["Success"] = "您的意見已經送出！";
             return RedirectToAction("Contact");
         }
 
