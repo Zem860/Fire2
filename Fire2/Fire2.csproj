@@ -277,6 +277,7 @@
     <Content Include="Areas\Dashboard\Views\Experts\Delete.cshtml" />
     <Content Include="Areas\Dashboard\Views\Experts\Details.cshtml" />
     <Content Include="Areas\Dashboard\Views\Experts\Edit.cshtml" />
+    <Content Include="Areas\Front\Views\Article\Calendar.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\ckeditor\ckeditor_source.js" />
     <Content Include="Scripts\ckeditor\config.js" />

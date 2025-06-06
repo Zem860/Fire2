@@ -49,5 +49,10 @@ namespace Fire2.Areas.Front.Controllers
             return View(expert);
         }
 
+        public ActionResult Calendar()
+        {
+            return  View();
+        }
+
     }
 }
