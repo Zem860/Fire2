@@ -186,9 +186,11 @@
     <Compile Include="Areas\Front\Controllers\SharedController.cs" />
     <Compile Include="Areas\Front\FrontAreaRegistration.cs" />
     <Compile Include="Areas\Front\Helper\EmailService.cs" />
+    <Compile Include="Areas\Front\Helper\NavbarHelper.cs" />
     <Compile Include="Areas\Front\Models\AboutMenu.cs" />
     <Compile Include="Areas\Front\Models\ContactViewModel.cs" />
     <Compile Include="Areas\Front\Models\Experts.cs" />
+    <Compile Include="Areas\Front\Models\NavbarItems.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -220,6 +222,22 @@
     <Compile Include="Migrations\202506050721039_removeRequiredForImgUrl.cs" />
     <Compile Include="Migrations\202506050721039_removeRequiredForImgUrl.Designer.cs">
       <DependentUpon>202506050721039_removeRequiredForImgUrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202506070235592_navbarItemTable.cs" />
+    <Compile Include="Migrations\202506070235592_navbarItemTable.Designer.cs">
+      <DependentUpon>202506070235592_navbarItemTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202506070248012_Pos.cs" />
+    <Compile Include="Migrations\202506070248012_Pos.Designer.cs">
+      <DependentUpon>202506070248012_Pos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202506070308109_requiredLogin.cs" />
+    <Compile Include="Migrations\202506070308109_requiredLogin.Designer.cs">
+      <DependentUpon>202506070308109_requiredLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202506070828099_removeDefault.cs" />
+    <Compile Include="Migrations\202506070828099_removeDefault.Designer.cs">
+      <DependentUpon>202506070828099_removeDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Model1.cs" />
@@ -695,6 +713,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202506050721039_removeRequiredForImgUrl.resx">
       <DependentUpon>202506050721039_removeRequiredForImgUrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506070235592_navbarItemTable.resx">
+      <DependentUpon>202506070235592_navbarItemTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506070248012_Pos.resx">
+      <DependentUpon>202506070248012_Pos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506070308109_requiredLogin.resx">
+      <DependentUpon>202506070308109_requiredLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506070828099_removeDefault.resx">
+      <DependentUpon>202506070828099_removeDefault.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
