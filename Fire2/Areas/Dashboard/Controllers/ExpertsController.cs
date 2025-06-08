@@ -10,6 +10,7 @@ using Fire2.Areas.Front.Models;
 using Fire2.Models;
 using Fire2.Areas.Dashboard.Helper;
 using MvcPaging;
+using Fire2.Areas.Dashboard.Models;
 
 namespace Fire2.Areas.Dashboard.Controllers
 {
@@ -29,20 +30,52 @@ namespace Fire2.Areas.Dashboard.Controllers
             {
                 page--;
             }
-            int pageSize = 1;
+            int pageSize = 3;
             var experts = db.Experts.OrderByDescending(x => x.CreatedAt).AsQueryable();
             //我到目前為止都只是指令還沒執行，還沒讓資料庫執行且實體化(toList就是去資料庫實際撈資料)，也就是可以不斷加上篩選條件
             //單位名稱關鍵字查詢
-            string name = "";
             if (Session["Name"] != null)
             {
-                name = Session["Name"].ToString();//Session物件要用.ToString才會變成字串
+                string name = Session["Name"].ToString();//Session物件要用.ToString才會變成字串
                 experts = experts.Where(x => x.Name.Contains(name));
             }
+            if (Session["Title"] != null)
+            {
+                string title = Session["Title"].ToString();
+                experts = experts.Where(x => x.Title.Contains(title));
+            }
+            if (Session["Education"] != null)
+            {
+                string education = Session["Education"].ToString();
+                experts = experts.Where(x => x.Education.Contains(education));
+            }
 
+            if (Session["CreatedAtStart"] != null)
+            {
+                DateTime start = (DateTime)Session["CreatedAtStart"];
+                experts = experts.Where(x => x.CreatedAt > start);
+            }
+            if (Session["CreatedAtEnd"] != null)
+            {
+                DateTime end = (DateTime)Session["CreatedAtEnd"];
+                experts = experts.Where(x => x.CreatedAt < end);
+            }
 
             return View(experts.ToPagedList(page.Value, pageSize));
             //return View(db.Experts.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult Index(ExpertSearchModel search)
+        {
+            Session["Name"] = search.Name;
+            Session["Title"] = search.Title;
+            Session["Education"] = search.Education;
+            Session["CreatedAtStart"] = search.CreatedAtStart;
+            Session["CreatedAtEnd"] = search.CreatedAtEnd;
+
+
+            return RedirectToAction("Index");
         }
 
         // GET: Dashboard/Experts/Details/5

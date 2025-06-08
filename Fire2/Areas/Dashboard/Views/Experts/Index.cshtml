@@ -18,6 +18,42 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm())
+{
+    <h5>快速查詢</h5>
+    <div class="row">
+        <div class="col-md-3">
+            <label for="name">姓名：</label>
+            <input type="text" id="name" name="name" class="form-control" value="@Session["Name"]" />
+        </div>
+        <div class="col-md-3">
+            <label for="title">職稱：</label>
+            <input type="text" name="title" id="title" class="form-control" value="@Session["Title"]" />
+        </div>
+        <div class="col-md-3">
+            <label for="education">學歷：</label>
+            <input type="text" id="education" name="education" class="form-control" value="@Session["Education"]" />
+        </div>
+        <div class="col-md-3 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">查詢</button>
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <label for="CreatedAtStart">建立開始時間：</label>
+            <input type="date" id="CreatedAtStart" name="CreatedAtStart" class="form-control" value="@Session["CreatedAtStart"]" />
+        </div>
+        <div class="col-md-3">
+            <label for="CreatedAtEnd">建立結束時間：</label>
+            <input type="date" id="CreatedAtEnd" name="CreatedAtEnd" class="form-control" value="@Session["CreatedAtEnd"]" />
+        </div>
+    </div>
+}
+
+
+
 <table class="table">
     <tr>
         <th>

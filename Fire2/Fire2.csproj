@@ -179,6 +179,7 @@
     <Compile Include="Areas\Dashboard\Controllers\HomeController.cs" />
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
     <Compile Include="Areas\Dashboard\Helper\FileHelper.cs" />
+    <Compile Include="Areas\Dashboard\Models\ExpertSearchModel.cs" />
     <Compile Include="Areas\Front\Controllers\ArticleController.cs" />
     <Compile Include="Areas\Front\Controllers\CaptchaController.cs" />
     <Compile Include="Areas\Front\Controllers\ContactController.cs" />
