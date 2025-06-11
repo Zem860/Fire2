@@ -16,6 +16,9 @@ namespace Fire2.Models
         public DbSet<Areas.Front.Models.Experts> Experts { get; set; }
 
         public DbSet<Areas.Front.Models.NavbarItems> NavbarItems { get; set; }
+
+        public DbSet<Areas.Front.Models.Members> Members { get; set; }
+        public DbSet<Areas.Front.Models.ServiceHistory> serviceHistories { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }

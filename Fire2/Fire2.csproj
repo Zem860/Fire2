@@ -184,6 +184,7 @@
     <Compile Include="Areas\Front\Controllers\CaptchaController.cs" />
     <Compile Include="Areas\Front\Controllers\ContactController.cs" />
     <Compile Include="Areas\Front\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Front\Controllers\MemberController.cs" />
     <Compile Include="Areas\Front\Controllers\SharedController.cs" />
     <Compile Include="Areas\Front\FrontAreaRegistration.cs" />
     <Compile Include="Areas\Front\Helper\EmailService.cs" />
@@ -191,7 +192,10 @@
     <Compile Include="Areas\Front\Models\AboutMenu.cs" />
     <Compile Include="Areas\Front\Models\ContactViewModel.cs" />
     <Compile Include="Areas\Front\Models\Experts.cs" />
+    <Compile Include="Areas\Front\Models\Members.cs" />
+    <Compile Include="Areas\Front\Models\MemberRegisterViewModel.cs" />
     <Compile Include="Areas\Front\Models\NavbarItems.cs" />
+    <Compile Include="Areas\Front\Models\ServiceHistory.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -239,6 +243,34 @@
     <Compile Include="Migrations\202506070828099_removeDefault.cs" />
     <Compile Include="Migrations\202506070828099_removeDefault.Designer.cs">
       <DependentUpon>202506070828099_removeDefault.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202506091313263_AddMembersServiceHistory.cs" />
+    <Compile Include="Migrations\202506091313263_AddMembersServiceHistory.Designer.cs">
+      <DependentUpon>202506091313263_AddMembersServiceHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202506110656368_addMembership.cs" />
+    <Compile Include="Migrations\202506110656368_addMembership.Designer.cs">
+      <DependentUpon>202506110656368_addMembership.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202506111415358_addTotalYearMonthsToServiceHistory.cs" />
+    <Compile Include="Migrations\202506111415358_addTotalYearMonthsToServiceHistory.Designer.cs">
+      <DependentUpon>202506111415358_addTotalYearMonthsToServiceHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202506111506386_removeTotalYearMonthsToServiceHistory.cs" />
+    <Compile Include="Migrations\202506111506386_removeTotalYearMonthsToServiceHistory.Designer.cs">
+      <DependentUpon>202506111506386_removeTotalYearMonthsToServiceHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202506111512283_makeIntNullable.cs" />
+    <Compile Include="Migrations\202506111512283_makeIntNullable.Designer.cs">
+      <DependentUpon>202506111512283_makeIntNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202506111514505_makeIntNullable1.cs" />
+    <Compile Include="Migrations\202506111514505_makeIntNullable1.Designer.cs">
+      <DependentUpon>202506111514505_makeIntNullable1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202506111523040_makeRequireErrorMsg.cs" />
+    <Compile Include="Migrations\202506111523040_makeRequireErrorMsg.Designer.cs">
+      <DependentUpon>202506111523040_makeRequireErrorMsg.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Model1.cs" />
@@ -297,6 +329,8 @@
     <Content Include="Areas\Dashboard\Views\Experts\Details.cshtml" />
     <Content Include="Areas\Dashboard\Views\Experts\Edit.cshtml" />
     <Content Include="Areas\Front\Views\Article\Calendar.cshtml" />
+    <Content Include="Areas\Front\Views\Member\Login.cshtml" />
+    <Content Include="Areas\Front\Views\Member\Register.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\ckeditor\ckeditor_source.js" />
     <Content Include="Scripts\ckeditor\config.js" />
@@ -663,7 +697,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Front\Views\Captcha\" />
     <Folder Include="Uploads\Experts\" />
   </ItemGroup>
   <ItemGroup>
@@ -726,6 +759,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202506070828099_removeDefault.resx">
       <DependentUpon>202506070828099_removeDefault.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506091313263_AddMembersServiceHistory.resx">
+      <DependentUpon>202506091313263_AddMembersServiceHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506110656368_addMembership.resx">
+      <DependentUpon>202506110656368_addMembership.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506111415358_addTotalYearMonthsToServiceHistory.resx">
+      <DependentUpon>202506111415358_addTotalYearMonthsToServiceHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506111506386_removeTotalYearMonthsToServiceHistory.resx">
+      <DependentUpon>202506111506386_removeTotalYearMonthsToServiceHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506111512283_makeIntNullable.resx">
+      <DependentUpon>202506111512283_makeIntNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506111514505_makeIntNullable1.resx">
+      <DependentUpon>202506111514505_makeIntNullable1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506111523040_makeRequireErrorMsg.resx">
+      <DependentUpon>202506111523040_makeRequireErrorMsg.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -117,14 +117,14 @@ namespace Fire2.Areas.Front.Models
         public virtual List<ServiceHistory> ServiceHistories { get; set; } = new List<ServiceHistory>();
 
 
-        [Required(ErrorMessage ="合計年資為必填")]
+        [Required(ErrorMessage = "合計年資(年)為必填")]
         [Display(Name = "合計年資(年)")]
         [Range(0,100, ErrorMessage = "合計年資(年)請輸入0~100之間")]  
-        public int TotalYears { get; set; }
+        public int? TotalYears { get; set; }
         [Required (ErrorMessage="合計年資(月)為必填")]
         [Display(Name="合計年資(月)")]
         [Range(0, 12, ErrorMessage = "合計年資(月)請輸入0~12之間")]
-        public int TotalMonths { get; set; }
+        public int? TotalMonths { get; set; }
 
         [Required(ErrorMessage = "驗證碼必填")]
         [Display(Name = "驗證碼")]
