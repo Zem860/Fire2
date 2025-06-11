@@ -14,6 +14,13 @@ namespace Fire2.Areas.Front.Models
         個人贊助會員 = 2,
         學生會員=3,
     }
+
+    public enum GenderEnum
+    {
+        男 = 0,
+        女 = 1
+    }
+
     public class Members
     {
         [Key]
@@ -50,6 +57,10 @@ namespace Fire2.Areas.Front.Models
         [Display(Name = "生日")]
         [Column(TypeName = "DATETIME")]
         public DateTime Birthday { get; set; }
+
+        [Required(ErrorMessage = "會員類型為必填")]
+        [Display(Name = "會員類型")]
+        public Membership MembershipType { get; set; }
 
 
         [Required(ErrorMessage = "電話為必填")]
