@@ -11,6 +11,7 @@ using Fire2.Models;
 using Fire2.Areas.Dashboard.Helper;
 using MvcPaging;
 using Fire2.Areas.Dashboard.Models;
+using System.IO;
 
 namespace Fire2.Areas.Dashboard.Controllers
 {
@@ -64,6 +65,27 @@ namespace Fire2.Areas.Dashboard.Controllers
             return View(experts.ToPagedList(page.Value, pageSize));
             //return View(db.Experts.ToList());
         }
+
+        [HttpPost]
+        public ActionResult UploadImage(HttpPostedFileBase upload, string CKEditorFuncNum)
+        {
+            if (upload != null && upload.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(upload.FileName);
+                var filePath = Server.MapPath("~/Uploads/" + fileName);
+                upload.SaveAs(filePath);
+
+                var imageUrl = Url.Content("~/Uploads/" + fileName);
+
+                // ⬇️ 回傳 CKEditor 4 需要的格式，才能插入圖片
+                string script = $"<script>window.parent.CKEDITOR.tools.callFunction({CKEditorFuncNum}, '{imageUrl}', '圖片上傳成功');</script>";
+                return Content(script, "text/html");
+            }
+
+            // ⬇️ 上傳失敗時的回傳格式
+            return Content("<script>alert('圖片上傳失敗');</script>", "text/html");
+        }
+
 
         [HttpPost]
         public ActionResult Index(ExpertSearchModel search)

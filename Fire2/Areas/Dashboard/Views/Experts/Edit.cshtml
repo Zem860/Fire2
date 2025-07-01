@@ -108,8 +108,52 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
 <script>
+    CKEDITOR.replace('editor', {
+        // 這裡可設定 toolbar 或其他 CKEditor 4 的選項
+        toolbar: [
+            ['Source', '-', 'Bold', 'Italic', 'Underline', 'Strike'],
+            ['NumberedList', 'BulletedList'],
+            ['Link', 'Unlink'],
+            ['Image', 'Table', 'HorizontalRule'],
+            ['Format', 'Font', 'FontSize'],
+            ['TextColor', 'BGColor'],
+            ['Maximize', 'ShowBlocks']
+        ],
+        filebrowserUploadUrl: '/Dashboard/Experts/UploadImage', // 你要實作的上傳處理位置
+        filebrowserUploadMethod: 'form'
+    });
+
+    CKEDITOR.replace('editor2', {
+        toolbar: [
+            ['Source', '-', 'Bold', 'Italic', 'Underline', 'Strike'],
+            ['NumberedList', 'BulletedList'],
+            ['Link', 'Unlink'],
+            ['Image', 'Table', 'HorizontalRule'],
+            ['Format', 'Font', 'FontSize'],
+            ['TextColor', 'BGColor'],
+            ['Maximize', 'ShowBlocks']
+        ],
+        filebrowserUploadUrl: '/Dashboard/Experts/UploadImage',
+        filebrowserUploadMethod: 'form'
+    });
+
+    CKEDITOR.replace('editor3', {
+        toolbar: [
+            ['Source', '-', 'Bold', 'Italic', 'Underline', 'Strike'],
+            ['NumberedList', 'BulletedList'],
+            ['Link', 'Unlink'],
+            ['Image', 'Table', 'HorizontalRule'],
+            ['Format', 'Font', 'FontSize'],
+            ['TextColor', 'BGColor'],
+            ['Maximize', 'ShowBlocks']
+        ],
+        filebrowserUploadUrl: '/Dashboard/Experts/UploadImage',
+        filebrowserUploadMethod: 'form'
+    });
+</script>
+
+@*<script>
     const ckOptions = {
         licenseKey: 'GPL',
         ckfinder: {
@@ -139,4 +183,4 @@
     ClassicEditor.create(document.querySelector('#editor'), ckOptions).catch(e => console.error(e));
     ClassicEditor.create(document.querySelector('#editor2'), ckOptions).catch(e => console.error(e));
     ClassicEditor.create(document.querySelector('#editor3'), ckOptions).catch(e => console.error(e));
-</script>
+</script>*@

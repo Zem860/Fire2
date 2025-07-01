@@ -5,7 +5,7 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm("Create", "Experts", FormMethod.Post, new {enctype="multipart/form-data",  area = "Dashboard" }))
+@using (Html.BeginForm("Create", "Experts", FormMethod.Post, new { enctype = "multipart/form-data", area = "Dashboard" }))
 {
     @Html.AntiForgeryToken()
 
@@ -22,7 +22,7 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Profile Photo Upload", htmlAttributes: new { @class="control-label col-md-2"})
+            @Html.Label("Profile Photo Upload", htmlAttributes: new { @class = "control-label col-md-2" })
             @*@Html.LabelFor(model => model.ImgUrl, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
                 @*@Html.EditorFor(model => model.ImgUrl, new { htmlAttributes = new { @class = "form-control" } })*@
@@ -97,35 +97,82 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-<script>
-    const ckOptions = {
-        licenseKey: 'GPL',
-        ckfinder: {
-            uploadUrl: 'https://ckeditor.com/apps/ckfinder/3.5.0/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json'
-        },
-        toolbar: {
-            items: [
-                'ckfinder', '|',
-                'exportPDF', 'exportWord', '|',
-                'findAndReplace', 'selectAll', '|',
-                'heading', '|',
-                'bold', 'italic', 'strikethrough', 'underline', 'code', 'subscript', 'superscript', 'removeFormat', '|',
-                'bulletedList', 'numberedList', 'todoList', '|',
-                'outdent', 'indent', '|',
-                'undo', 'redo',
-                '-',
-                'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
-                'alignment', '|',
-                'link', 'insertImage', 'blockQuote', 'insertTable', 'mediaEmbed', 'codeBlock', 'htmlEmbed', '|',
-                'specialCharacters', 'horizontalLine', 'pageBreak', '|',
-                'textPartLanguage', '|',
-                'sourceEditing'
-            ]
-        }
-    };
 
-    ClassicEditor.create(document.querySelector('#editor'), ckOptions).catch(e => console.error(e));
-    ClassicEditor.create(document.querySelector('#editor2'), ckOptions).catch(e => console.error(e));
-    ClassicEditor.create(document.querySelector('#editor3'), ckOptions).catch(e => console.error(e));
+<script>
+    CKEDITOR.replace('editor', {
+        // 這裡可設定 toolbar 或其他 CKEditor 4 的選項
+        toolbar: [
+            ['Source', '-', 'Bold', 'Italic', 'Underline', 'Strike'],
+            ['NumberedList', 'BulletedList'],
+            ['Link', 'Unlink'],
+            ['Image', 'Table', 'HorizontalRule'],
+            ['Format', 'Font', 'FontSize'],
+            ['TextColor', 'BGColor'],
+            ['Maximize', 'ShowBlocks']
+        ],
+        filebrowserUploadUrl: '/Dashboard/Experts/UploadImage', // 你要實作的上傳處理位置
+        filebrowserUploadMethod: 'form'
+    });
+
+    CKEDITOR.replace('editor2', {
+        toolbar: [
+            ['Source', '-', 'Bold', 'Italic', 'Underline', 'Strike'],
+            ['NumberedList', 'BulletedList'],
+            ['Link', 'Unlink'],
+            ['Image', 'Table', 'HorizontalRule'],
+            ['Format', 'Font', 'FontSize'],
+            ['TextColor', 'BGColor'],
+            ['Maximize', 'ShowBlocks']
+        ],
+        filebrowserUploadUrl: '/Dashboard/Experts/UploadImage',
+        filebrowserUploadMethod: 'form'
+    });
+
+    CKEDITOR.replace('editor3', {
+        toolbar: [
+            ['Source', '-', 'Bold', 'Italic', 'Underline', 'Strike'],
+            ['NumberedList', 'BulletedList'],
+            ['Link', 'Unlink'],
+            ['Image', 'Table', 'HorizontalRule'],
+            ['Format', 'Font', 'FontSize'],
+            ['TextColor', 'BGColor'],
+            ['Maximize', 'ShowBlocks']
+        ],
+        filebrowserUploadUrl: '/Dashboard/Experts/UploadImage',
+        filebrowserUploadMethod: 'form'
+    });
 </script>
+
+
+@*<script>
+        const ckOptions = {
+            licenseKey: 'GPL',
+            ckfinder: {
+                uploadUrl: 'https://ckeditor.com/apps/ckfinder/3.5.0/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json'
+            },
+            toolbar: {
+                items: [
+                    'ckfinder', '|',
+                    'exportPDF', 'exportWord', '|',
+                    'findAndReplace', 'selectAll', '|',
+                    'heading', '|',
+                    'bold', 'italic', 'strikethrough', 'underline', 'code', 'subscript', 'superscript', 'removeFormat', '|',
+                    'bulletedList', 'numberedList', 'todoList', '|',
+                    'outdent', 'indent', '|',
+                    'undo', 'redo',
+                    '-',
+                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
+                    'alignment', '|',
+                    'link', 'insertImage', 'blockQuote', 'insertTable', 'mediaEmbed', 'codeBlock', 'htmlEmbed', '|',
+                    'specialCharacters', 'horizontalLine', 'pageBreak', '|',
+                    'textPartLanguage', '|',
+                    'sourceEditing'
+                ]
+            }
+        };
+
+        ClassicEditor.create(document.querySelector('#editor'), ckOptions).catch(e => console.error(e));
+        ClassicEditor.create(document.querySelector('#editor2'), ckOptions).catch(e => console.error(e));
+        ClassicEditor.create(document.querySelector('#editor3'), ckOptions).catch(e => console.error(e));
+    </script>*@
 
