@@ -1,0 +1,46 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Fire2.Areas.Front.Models.News>>
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using Fire2.Areas.Dashboard.Helper
+
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CoverPhoto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.Title)
+            </td>
+            <td>
+                <img src="@Url.Content(item.CoverPhoto)" alt="img" class="img-responsive w-25" />
+            </td>
+            <td>
+                @Html.Raw(UtilHelper.ExtractFirstParagraphText(item.Content))
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
