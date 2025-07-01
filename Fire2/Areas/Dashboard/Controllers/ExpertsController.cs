@@ -72,10 +72,10 @@ namespace Fire2.Areas.Dashboard.Controllers
             if (upload != null && upload.ContentLength > 0)
             {
                 var fileName = Path.GetFileName(upload.FileName);
-                var filePath = Server.MapPath("~/Uploads/" + fileName);
+                var filePath = Server.MapPath("~/Uploads/Experts/" + fileName);
                 upload.SaveAs(filePath);
 
-                var imageUrl = Url.Content("~/Uploads/" + fileName);
+                var imageUrl = Url.Content("~/Uploads/Experts/" + fileName);
 
                 // ⬇️ 回傳 CKEditor 4 需要的格式，才能插入圖片
                 string script = $"<script>window.parent.CKEDITOR.tools.callFunction({CKEditorFuncNum}, '{imageUrl}', '圖片上傳成功');</script>";
@@ -137,7 +137,7 @@ namespace Fire2.Areas.Dashboard.Controllers
                     experts.ImgUrl = "/Uploads/Experts/default.jpg"; // 預設圖片
                 } else
                 {
-                    string fileName = FileHelper.SaveUpImage(ImgUrl);
+                    string fileName = FileHelper.SaveUpImage(ImgUrl, "Experts");
                     experts.ImgUrl = $"Uploads/Experts/{fileName}";
                 }
 
@@ -181,7 +181,7 @@ namespace Fire2.Areas.Dashboard.Controllers
                 }
                 if (ImgUrl!=null && ImgUrl.ContentLength > 0)
                 {
-                    string fileName = FileHelper.SaveUpImage(ImgUrl);
+                    string fileName = FileHelper.SaveUpImage(ImgUrl,"Experts");
                     experts.ImgUrl = $"/Uploads/Experts/{fileName}";
                 }
                 else
