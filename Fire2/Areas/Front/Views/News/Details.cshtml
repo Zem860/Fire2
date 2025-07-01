@@ -1,0 +1,48 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Fire2.Areas.Front.Models.News>
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+
+@{
+    Layout = "~/Areas/Front/Views/Shared/_Layout.cshtml";
+}
+<h2>Details</h2>
+
+<div>
+    <h4>News</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CoverPhoto)
+            </dt>
+
+            <dd>
+                <img src="@Url.Content(Model.CoverPhoto)" alt="img" class="img-responsive" />            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Content)
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.Content)
+            </dd>
+        
+
+
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
