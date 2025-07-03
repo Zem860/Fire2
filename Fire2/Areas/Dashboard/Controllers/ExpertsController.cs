@@ -138,7 +138,7 @@ namespace Fire2.Areas.Dashboard.Controllers
                 } else
                 {
                     string fileName = FileHelper.SaveUpImage(ImgUrl, "Experts");
-                    experts.ImgUrl = $"Uploads/Experts/{fileName}";
+                    experts.ImgUrl = $"/Uploads/Experts/{fileName}";
                 }
 
 
