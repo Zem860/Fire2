@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using Fire2.Areas.Dashboard.Helper;
 using Fire2.Areas.Front.Models;
 using Fire2.Migrations;
+using MvcPaging;
 using Fire2.Models;
 
 namespace Fire2.Areas.Dashboard.Controllers
@@ -21,9 +24,23 @@ namespace Fire2.Areas.Dashboard.Controllers
 
 
         // GET: Dashboard/News
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.News.ToList());
+            if (!page.HasValue)
+            {
+                page = 0;
+            } else
+            {
+                page--;
+            }
+            int pageSize = 3;
+            var news = db.News.OrderByDescending(x => x.CreatedAt).AsQueryable();
+
+
+
+            return View(news.ToPagedList(page.Value, pageSize));
+
+            //return View(db.News.ToList());
         }
 
         [HttpPost]
@@ -140,9 +157,10 @@ namespace Fire2.Areas.Dashboard.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(news).State = EntityState.Modified;
+                var newsPhotoPath = news.CoverPhoto;
                 if (CoverPhoto == null || CoverPhoto.ContentLength == 0)
                 {
-                    news.CoverPhoto = news.CoverPhoto; // 預設圖片
+                    news.CoverPhoto = newsPhotoPath; // 預設圖片
                 }
                 else
                 {
