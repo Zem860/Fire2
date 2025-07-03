@@ -140,6 +140,8 @@ namespace Fire2.Areas.Dashboard.Controllers
                     string fileName = FileHelper.SaveUpImage(ImgUrl, "Experts");
                     experts.ImgUrl = $"/Uploads/Experts/{fileName}";
                 }
+                experts.CreatedAt = DateTime.UtcNow;
+                experts.UpdatedAt = DateTime.UtcNow; // 更新時間設為當前時間
 
 
                 db.Experts.Add(experts);
