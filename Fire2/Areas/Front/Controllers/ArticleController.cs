@@ -17,6 +17,16 @@ namespace Fire2.Areas.Front.Controllers
             return View();
         }
 
+        public ActionResult History()
+        {
+
+            var sidebarData = db.AboutMenus.OrderBy(m => m.CreatedAt).ToList();
+            var aboutPageContent = db.AboutPageContents.FirstOrDefault(c => c.PageKey == "History");
+            ViewBag.SidebarData = sidebarData;
+            ViewBag.AboutPageContent = aboutPageContent.Content;
+            return View();
+        }
+
         public ActionResult About()
         {
             var sidebarData = db.AboutMenus.OrderBy(m => m.CreatedAt).ToList();
