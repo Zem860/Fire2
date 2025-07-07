@@ -20,8 +20,10 @@ namespace Fire2.Models
         public DbSet<Areas.Front.Models.Members> Members { get; set; }
         public DbSet<Areas.Front.Models.ServiceHistory> serviceHistories { get; set; }
         public DbSet<Areas.Front.Models.News> News { get; set; }
+        public DbSet<Areas.Front.Models.AboutPageContent> AboutPageContents { get; set; }
 
         public DbSet<Areas.Dashboard.Models.Admins> Admins { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }
