@@ -20,7 +20,7 @@ namespace Fire2.Areas.Front.Controllers
         public ActionResult History()
         {
 
-            var sidebarData = db.AboutMenus.OrderBy(m => m.CreatedAt).ToList();
+            var sidebarData = db.AboutPageContents.OrderBy(m => m.CreatedAt).ToList();
             var aboutPageContent = db.AboutPageContents.FirstOrDefault(c => c.PageKey == "History");
             ViewBag.SidebarData = sidebarData;
             ViewBag.AboutPageContent = aboutPageContent.Content;
@@ -28,7 +28,7 @@ namespace Fire2.Areas.Front.Controllers
         }
         public ActionResult Member()
         {
-            var sidebarData = db.AboutMenus.OrderBy(m => m.CreatedAt).ToList();
+            var sidebarData = db.AboutPageContents.OrderBy(m => m.CreatedAt).ToList();
 
             ViewBag.SidebarData = sidebarData;
             return View();
@@ -36,9 +36,10 @@ namespace Fire2.Areas.Front.Controllers
 
         public ActionResult About()
         {
-            var sidebarData = db.AboutMenus.OrderBy(m => m.CreatedAt).ToList();
-            var aboutPageContent = db.AboutPageContents.FirstOrDefault(c => c.PageKey == "About");
-            
+            //var sidebarData = db.AboutMenus.OrderBy(m => m.CreatedAt).ToList();
+
+            var sidebarData = db.AboutPageContents.OrderBy(m => m.CreatedAt).ToList();
+            var aboutPageContent = db.AboutPageContents.FirstOrDefault(c => c.PageKey == "About");          
             ViewBag.SidebarData = sidebarData;
             ViewBag.AboutPageContent = aboutPageContent.Content;
             return View();
@@ -46,7 +47,7 @@ namespace Fire2.Areas.Front.Controllers
 
         public ActionResult Organization()
         {
-            var sidebarData = db.AboutMenus.OrderBy(m => m.CreatedAt).ToList();
+            var sidebarData = db.AboutPageContents.OrderBy(m => m.CreatedAt).ToList();
             var aboutPageContent = db.AboutPageContents.FirstOrDefault(c => c.PageKey == "Orgnization");
 
             ViewBag.SidebarData = sidebarData;
@@ -56,12 +57,17 @@ namespace Fire2.Areas.Front.Controllers
         }
         public ActionResult Expert()
         {
+            var sidebarData = db.AboutPageContents.OrderBy(m => m.CreatedAt).ToList();
+
             var expertsData = db.Experts.OrderBy(e => e.Id).ToList();
+            ViewBag.SidebarData = sidebarData;
+
             ViewBag.ExpertsData = expertsData;
             return View();
         }
         public ActionResult ExpertDetail(int id)
         {
+
             // 不需要 Convert.ToString(id)，因為 int 不能為 null，也不會是空字串
             var expert = db.Experts.FirstOrDefault(e => e.Id == id);
 
@@ -69,6 +75,9 @@ namespace Fire2.Areas.Front.Controllers
             {
                 return HttpNotFound();
             }
+            var sidebarData = db.AboutPageContents.OrderBy(m => m.CreatedAt).ToList();
+
+            ViewBag.SidebarData = sidebarData;
 
             return View(expert);
         }

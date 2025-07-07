@@ -26,9 +26,20 @@ namespace Fire2.Areas.Front.Models
 
         public string Title { get; set; }
 
+        [Column(TypeName = "nvarchar")]
+        [MaxLength(30)]
+        [Display(Name = "連結")]
+        public string Link { get; set; }
+
         [AllowHtml]
         [Display(Name = "頁面內容")]
         public string Content { get; set; }
-        public DateTime UpdatedAt { get; set; }
+
+        [Column(TypeName = "DATETIME")]
+        [Display(Name = "創建時間")]
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        [Column(TypeName = "DATETIME")]
+        [Display(Name = "更新時間")]
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     }
 }

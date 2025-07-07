@@ -74,12 +74,18 @@
 
                     <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
 
+
+
                         <div class="sidebar sidebar-right">
                             <div class="widget">
                                 <h2 class="widget-title"><i class="fa fa-folder-open-o">&nbsp;</i>關於我們</h2>
                                 <ul class="arrow nav nav-tabs nav-stacked">
-                                    <li><a href="about.html">協會介紹</a></li>
-                                    <li class="active"><a href="master.html">專家介紹</a></li>
+                                    @foreach (var item in ViewBag.SidebarData)
+                                    {
+                                        <li>
+                                            <a href="@item.Link">@item.Title</a>
+                                        </li>
+                                    }
                                 </ul>
                             </div><!-- Categories end -->
 
@@ -188,32 +194,3 @@
     </div><!-- Body inner end -->
 </body>
 </html>
-
-<section id="main-container" class="main-container">
-    <div class="container">
-        <div class="row">
-            <h2 class="page-title">專家介紹</h2>
-            <hr class="botmargin-min">
-
-            <!-- 內容開始 -->
-
-            <div class="row">
-                @foreach (var experts in ViewBag.ExpertsData)
-                {
-                    <div class="col-md-4">
-                        <div class="ts-service-wrapper">
-                            <div class="ts-service-image-wrapper">
-                                <span class="ts-service-image">
-                                    <a href="@Url.Action("ExpertDetail", "Article", new { area = "Front", id = experts.Id })" title=@experts.Name><img class="img-fluid" style="height: 300px;width:250px; object-fit: cover;" src=@experts.ImgUrl alt=@experts.Name></a>
-                                </span>
-                            </div>
-                            <div class="ts-service-info">
-                                <h3><a href="master_show.html">@experts.Name</a></h3>
-                                <p>現職：@experts.Title </p>
-                            </div>
-                        </div>
-                    </div><!-- Col 1 end -->
-                }
-            </div>
-        </div>
-</section>
