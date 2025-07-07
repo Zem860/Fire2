@@ -26,6 +26,13 @@ namespace Fire2.Areas.Front.Controllers
             ViewBag.AboutPageContent = aboutPageContent.Content;
             return View();
         }
+        public ActionResult Member()
+        {
+            var sidebarData = db.AboutMenus.OrderBy(m => m.CreatedAt).ToList();
+
+            ViewBag.SidebarData = sidebarData;
+            return View();
+        }
 
         public ActionResult About()
         {
