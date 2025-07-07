@@ -1,8 +1,6 @@
-﻿@model Fire2.Areas.Front.Models.AboutPageContent
-
-@{
-    ViewBag.Title = "Delete";
-}
+﻿@inherits System.Web.Mvc.WebViewPage<Fire2.Areas.Front.Models.AboutPageContent>
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
 
 <h2>Delete</h2>
 
@@ -36,6 +34,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.UpdatedAt)
         </dt>
 
@@ -45,7 +51,8 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

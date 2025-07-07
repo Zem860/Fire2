@@ -47,10 +47,11 @@ namespace Fire2.Areas.Dashboard.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,PageKey,Title,Content,UpdatedAt")] AboutPageContent aboutPageContent)
+        public ActionResult Create([Bind(Include = "Id,PageKey,Title, Link,Content,CreatedAt, UpdatedAt")] AboutPageContent aboutPageContent)
         {
             if (ModelState.IsValid)
             {
+                aboutPageContent.CreatedAt = DateTime.UtcNow; // 設定創建時間為當前時間
                 aboutPageContent.UpdatedAt = DateTime.UtcNow; // 設定更新時間為當前時間
                 db.AboutPageContents.Add(aboutPageContent);
                 db.SaveChanges();
@@ -80,7 +81,7 @@ namespace Fire2.Areas.Dashboard.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,PageKey,Title,Content,UpdatedAt")] AboutPageContent aboutPageContent)
+        public ActionResult Edit([Bind(Include = "Id,PageKey,Title,Link,Content,CreatedAt,UpdatedAt")] AboutPageContent aboutPageContent)
         {
             if (ModelState.IsValid)
             {
