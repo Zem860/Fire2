@@ -20,14 +20,21 @@ namespace Fire2.Areas.Front.Controllers
         public ActionResult About()
         {
             var sidebarData = db.AboutMenus.OrderBy(m => m.CreatedAt).ToList();
+            var aboutPageContent = db.AboutPageContents.FirstOrDefault(c => c.PageKey == "About");
+            
             ViewBag.SidebarData = sidebarData;
+            ViewBag.AboutPageContent = aboutPageContent.Content;
             return View();
         }
 
         public ActionResult Organization()
         {
             var sidebarData = db.AboutMenus.OrderBy(m => m.CreatedAt).ToList();
+            var aboutPageContent = db.AboutPageContents.FirstOrDefault(c => c.PageKey == "Orgnization");
+
             ViewBag.SidebarData = sidebarData;
+            ViewBag.AboutPageContent = aboutPageContent.Content;
+
             return View();
         }
         public ActionResult Expert()
