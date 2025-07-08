@@ -1,7 +1,28 @@
-﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Fire2.Areas.Front.Models.News>>
+﻿@using MvcPaging;
+@using Fire2.Areas.Dashboard.Helper
+@inherits System.Web.Mvc.WebViewPage<IPagedList<Fire2.Areas.Front.Models.News>>
 @using System.Web.Mvc
 @using System.Web.Mvc.Html
-@using Fire2.Areas.Dashboard.Helper
+
+@{
+    Layout = "~/Areas/Dashboard/Views/Shared/_Layout.cshtml";
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- Bootstrap -->
+    <!-- Template styles-->
+    <link rel="stylesheet" href="~/Content/css/style.css">
+    <link rel="stylesheet" href="~/Content/css/owl.theme.css">
+</head>
+
+
+<body>
+
+
+</body>
+</html>
 
 
 <h2>Index</h2>
@@ -9,16 +30,16 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-sm">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CoverPhoto)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().CoverPhoto)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Content)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Content)
         </th>
         <th></th>
     </tr>
@@ -33,7 +54,7 @@
                 <img src="@Url.Content(item.CoverPhoto)" alt="img" class="img-responsive w-25" />
             </td>
             <td>
-                @Html.Raw(UtilHelper.ExtractFirstParagraphText(item.Content))
+                @Html.Raw(UtilHelper.ExtractFirstCleanParagraph(item.Content))
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
@@ -44,3 +65,9 @@
     }
 
 </table>
+
+<div class="d-flex justify-content-center">
+    <div class="pager paging text-center pagination">
+        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+    </div>
+</div>
