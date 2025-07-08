@@ -1,4 +1,7 @@
-﻿@inherits System.Web.Mvc.WebViewPage
+﻿@*@inherits System.Web.Mvc.WebViewPage*@
+@using MvcPaging;
+@inherits System.Web.Mvc.WebViewPage<IPagedList<Fire2.Areas.Front.Models.News>>
+
 @using Fire2.Areas.Front.Helper
 
 
@@ -89,7 +92,7 @@
 
                         <!-- 內容開始 -->
                         <div class="row">
-                            @foreach (var news in ViewBag.NewsData)
+                            @foreach (var news in Model)
                             {
                                 <div class="post">
                                     <div class="row">
@@ -109,7 +112,7 @@
                                                     </h3>
                                                     <p>
                                                         @Html.Raw(UtilHelper.ExtractFirstParagraphText(news.Content))
-                                                                                                    </p>
+                                                    </p>
                                                 </div>
                                                 <!-- header end -->
                                                 <div class="post-footer">
@@ -124,158 +127,13 @@
                         </div>
                         <!-- 內容結束 -->
                         <!-- 1st post end -->
-                        <div class="post">
-                            <div class="row">
-                                <div class="col-md-3 col-sm-12 col-xs-12">
-                                    <div class="post-media post-image">
-                                        <a href="news_show.html"><img alt="img" src="images/newsimg-02.jpg" class="img-responsive"></a>
-                                    </div>
-                                </div>
-                                <div class="col-md-9 col-sm-12 col-xs-12">
-                                    <div class="post-body">
-                                        <div class="entry-header">
-                                            <span class="post-meta-date"><i class="fa fa fa-clock-o"></i> 2016-03-28</span>
-                                            <h3 class="entry-title">
-                                                <a href="news_show.html">最新消息標題最新消息標題最新消息標題最新消息標題最新消息標題最新消息標題最新消息標題最新消息標題</a>
-                                            </h3>
-                                            <p>最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文...</p>
-                                        </div>
-                                        <!-- header end -->
-                                        <div class="post-footer">
-                                            <a href="news_show.html" class="btn btn-primary">more</a>
-                                        </div>
-                                    </div>
-                                    <!-- post-body end -->
-                                </div>
-                            </div>
-                        </div>
-                        <!-- 2nd post end -->
-                        <div class="post">
-                            <div class="row">
-                                <div class="col-md-3 col-sm-12 col-xs-12">
-                                    <div class="post-media post-image">
-                                        <a href="news_show.html"><img alt="img" src="images/newsimg-03.jpg" class="img-responsive"></a>
-                                    </div>
-                                </div>
-                                <div class="col-md-9 col-sm-12 col-xs-12">
-                                    <div class="post-body">
-                                        <div class="entry-header">
-                                            <span class="post-meta-date"><i class="fa fa fa-clock-o"></i> 2016-03-28</span>
-                                            <h3 class="entry-title">
-                                                <a href="news_show.html">最新消息標題最新消息標題最新消息標題最新消息標題</a>
-                                            </h3>
-                                            <p>最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文...</p>
-                                        </div>
-                                        <!-- header end -->
-                                        <div class="post-footer">
-                                            <a href="news_show.html" class="btn btn-primary">more</a>
-                                        </div>
-                                    </div>
-                                    <!-- post-body end -->
-                                </div>
-                            </div>
-                        </div>
-                        <!-- 3rd post end -->
-                        <div class="post">
-                            <div class="row">
-                                <div class="col-md-3 col-sm-12 col-xs-12">
-                                    <div class="post-media post-image">
-                                        <a href="news_show.html"><img alt="img" src="images/newsimg-04.jpg" class="img-responsive"></a>
-                                    </div>
-                                </div>
-                                <div class="col-md-9 col-sm-12 col-xs-12">
-                                    <div class="post-body">
-                                        <div class="entry-header">
-                                            <span class="post-meta-date"><i class="fa fa fa-clock-o"></i> 2016-03-28</span>
-                                            <h3 class="entry-title">
-                                                <a href="news_show.html">最新消息標題最新消息標題最新消息標題最新消息標題最新消息標題最新消息標題最新消息標題最新消息標題</a>
-                                            </h3>
-                                            <p>最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文...</p>
-                                        </div>
-                                        <!-- header end -->
-                                        <div class="post-footer">
-                                            <a href="news_show.html" class="btn btn-primary">more</a>
-                                        </div>
-                                    </div>
-                                    <!-- post-body end -->
-                                </div>
-                            </div>
-                        </div>
-                        <!-- 4rd post end -->
-                        <div class="post">
-                            <div class="row">
-                                <div class="col-md-3 col-sm-12 col-xs-12">
-                                    <div class="post-media post-image">
-                                        <a href="news_show.html"><img alt="img" src="images/newsimg.jpg" class="img-responsive"></a>
-                                    </div>
-                                </div>
-                                <div class="col-md-9 col-sm-12 col-xs-12">
-                                    <div class="post-body">
-                                        <div class="entry-header">
-                                            <span class="post-meta-date"><i class="fa fa fa-clock-o"></i> 2016-03-28</span>
-                                            <h3 class="entry-title">
-                                                <a href="news_show.html">最新消息標題最新消息標題最新消息標題最新消息標題</a>
-                                            </h3>
-                                            <p>最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文...</p>
-                                        </div>
-                                        <!-- header end -->
-                                        <div class="post-footer">
-                                            <a href="news_show.html" class="btn btn-primary">more</a>
-                                        </div>
-                                    </div>
-                                    <!-- post-body end -->
-                                </div>
-                            </div>
-                        </div>
-                        <!-- 5rd post end -->
-                        <div class="post">
-                            <div class="row">
-                                <div class="col-md-3 col-sm-12 col-xs-12">
-                                    <div class="post-media post-image">
-                                        <a href="news_show.html"><img alt="img" src="images/newsimg-size.jpg" class="img-responsive"></a>
-                                    </div>
-                                </div>
-                                <div class="col-md-9 col-sm-12 col-xs-12">
-                                    <div class="post-body">
-                                        <div class="entry-header">
-                                            <span class="post-meta-date"><i class="fa fa fa-clock-o"></i> 2016-03-28</span>
-                                            <h3 class="entry-title">
-                                                <a href="news_show.html">最新消息標題最新消息標題最新消息標題最新消息標題</a>
-                                            </h3>
-                                            <p>最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文最新消息內文...</p>
-                                        </div>
-                                        <!-- header end -->
-                                        <div class="post-footer">
-                                            <a href="news_show.html" class="btn btn-primary">more</a>
-                                        </div>
-                                    </div>
-                                    <!-- post-body end -->
-                                </div>
-                            </div>
-                        </div>
                         <!-- 6rd post end -->
-                        <div class="paging text-center">
-                            <ul class="pagination">
-                                <li><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
-                            </ul>
-
-                            <div class="paging text-center">
-                                <span class="disabled">«</span>
-                                <span class="current">1</span>
-                                <a href="/news?page=2" title="">2</a>
-                                <a href="/news?page=3" title="">3</a>
-                                <a href="/news?page=4" title="">4</a>
-                                <a href="/news?page=2" title="Next page">»</a>
+                        <div class="text-center">
+                            <div class="pager paging text-center pagination">
+                                @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
                             </div>
-
-
                         </div>
+
                     </div>
                     <!-- Content Col end -->
                 </div>
