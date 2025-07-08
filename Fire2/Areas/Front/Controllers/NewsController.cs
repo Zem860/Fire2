@@ -7,6 +7,7 @@ using Fire2.Areas.Front.Models;
 using Fire2.Areas.Front.Helper;
 using Fire2.Models;
 using System.Net;
+using MvcPaging;
 
 
 namespace Fire2.Areas.Front.Controllers
@@ -16,11 +17,21 @@ namespace Fire2.Areas.Front.Controllers
         private Model1 db = new Model1();
 
         // GET: Front/News
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var newsData = db.News.OrderBy(e => e.Id).ToList();
+            if (!page.HasValue)
+            {
+                page = 0;
+            }
+            else
+            {
+                page--;
+            }
+            int pageSize = 3;
+
+            var newsData = db.News.OrderBy(e => e.Id).AsQueryable();
             ViewBag.NewsData = newsData;
-            return View();
+            return View(newsData.ToPagedList(page.Value, pageSize));
         }
 
         public ActionResult News()
