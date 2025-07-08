@@ -14,6 +14,7 @@ using Fire2.Areas.Front.Models;
 using Fire2.Migrations;
 using MvcPaging;
 using Fire2.Models;
+using Fire2.Areas.Dashboard.Models;
 
 namespace Fire2.Areas.Dashboard.Controllers
 {
@@ -36,12 +37,46 @@ namespace Fire2.Areas.Dashboard.Controllers
             int pageSize = 3;
             var news = db.News.OrderByDescending(x => x.CreatedAt).AsQueryable();
 
+            if (Session["NewsTitle"] != null)
+            {
+                string title = Session["NewsTitle"].ToString();
+                news = news.Where(x=>x.Title.Contains(title));
+            }
 
+            if (Session["NewsContent"] != null)
+            {
+                string content = Session["NewsContent"].ToString();
+                news = news.Where(x => x.Content.Contains(content));
+            }
+            if (Session["NewsCreatedAtStart"] != null)
+            {
+                DateTime start = (DateTime)Session["NewsCreatedAtStart"];
+                news = news.Where(x=>x.CreatedAt > start);
+
+            }
+            if (Session["NewsCreatedAtEnd"] != null)
+            {
+                DateTime end = (DateTime)Session["NewsCreatedAtEnd"];
+                news = news.Where(x => x.CreatedAt < end);
+            }
 
             return View(news.ToPagedList(page.Value, pageSize));
 
             //return View(db.News.ToList());
         }
+
+        [HttpPost]
+        public ActionResult Index(NewsSearchModel search)
+        {
+            Session["NewsTitle"] = search.Title;
+            Session["NewsContent"] = search.Content;
+            Session["NewsCreatedAtStart"] = search.CreatedAtStart;
+            Session["NewsCreatedAtEnd"] = search.CreatedAtEnd;
+
+
+            return RedirectToAction("Index");
+        }
+
 
         [HttpPost]
         public ActionResult UploadImage(HttpPostedFileBase upload, string CKEditorFuncNum)
@@ -160,14 +195,14 @@ namespace Fire2.Areas.Dashboard.Controllers
                 var newsPhotoPath = news.CoverPhoto;
                 if (CoverPhoto == null || CoverPhoto.ContentLength == 0)
                 {
-                    news.CoverPhoto = newsPhotoPath; // 預設圖片
+                    news.CoverPhoto = $"/Uploads/{pos}/default.png"; // 預設圖片
                 }
                 else
                 {
                     string fileName = FileHelper.SaveUpImage(CoverPhoto, pos);
                     news.CoverPhoto = $"/Uploads/{pos}/{fileName}";
                 }
-
+                news.UpdatedAt = DateTime.UtcNow;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

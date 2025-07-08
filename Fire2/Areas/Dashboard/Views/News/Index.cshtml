@@ -1,4 +1,4 @@
-﻿@using MvcPaging;
+﻿@using MvcPaging
 @using Fire2.Areas.Dashboard.Helper
 @inherits System.Web.Mvc.WebViewPage<IPagedList<Fire2.Areas.Front.Models.News>>
 @using System.Web.Mvc
@@ -9,65 +9,79 @@
 }
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
-    <!-- Bootstrap -->
     <!-- Template styles-->
     <link rel="stylesheet" href="~/Content/css/style.css">
     <link rel="stylesheet" href="~/Content/css/owl.theme.css">
 </head>
 
-
 <body>
+    <div class="container mt-4">
+        <h2>Index</h2>
 
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
 
+        @using (Html.BeginForm())
+        {
+            <h5>快速查詢</h5>
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label for="title" class="form-label">標題:</label>
+                    <input type="text" id="title" name="title" value="@Session["NewsTitle"]" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <label for="content" class="form-label">內容:</label>
+                    <input type="text" name="content" value="@Session["NewsContent"]" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <label for="CreatedAtStart" class="form-label">建立開始時間：</label>
+                    <input type="date" name="CreatedAtStart" value="@Session["NewsCreatedAtStart"]" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <label for="CreatedAtEnd" class="form-label">建立結束時間:</label>
+                    <input type="date" name="CreatedAtEnd" value="@Session["NewsCreatedAtEnd"]" class="form-control" />
+                </div>
+                <div class="col-md-3 mt-3">
+                    <button type="submit" class="btn btn-secondary w-100">查詢</button>
+                </div>
+            </div>
+        }
+
+        <table class="table table-sm mt-4">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Title)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().CoverPhoto)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Content)</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().CreatedAt)
+                </th>
+                <th>@Html.DisplayNameFor(model=>model.FirstOrDefault().UpdatedAt)</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(model => item.Title)</td>
+                    <td><img src="@Url.Content(item.CoverPhoto)" alt="img" class="img-fluid w-25" /></td>
+                    <td>@Html.Raw(UtilHelper.ExtractFirstCleanParagraph(item.Content))</td>
+                    <td>@Html.DisplayFor(model=>item.CreatedAt)</td>
+                    <td>@Html.DisplayFor(model=>item.UpdatedAt)</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <div class="d-flex justify-content-center mt-4">
+            <div class="pager paging text-center pagination">
+                @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+            </div>
+        </div>
+    </div>
 </body>
 </html>
-
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table table-sm">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().CoverPhoto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().Content)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(model => item.Title)
-            </td>
-            <td>
-                <img src="@Url.Content(item.CoverPhoto)" alt="img" class="img-responsive w-25" />
-            </td>
-            <td>
-                @Html.Raw(UtilHelper.ExtractFirstCleanParagraph(item.Content))
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    }
-
-</table>
-
-<div class="d-flex justify-content-center">
-    <div class="pager paging text-center pagination">
-        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-    </div>
-</div>
