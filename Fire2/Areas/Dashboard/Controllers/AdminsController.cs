@@ -78,6 +78,9 @@ namespace Fire2.Areas.Dashboard.Controllers
             {
                 return HttpNotFound();
             }
+
+            var tree = new TreeHelper();
+            ViewBag.Tree = tree.GetTree();
             return View(admins);
         }
 
@@ -86,10 +89,11 @@ namespace Fire2.Areas.Dashboard.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Account,PasswordHash,Salt,Name,Gender,Email,CreatedAt,UpdatedAt")] Admins admins)
+        public ActionResult Edit(Admins admins)
         {
             if (ModelState.IsValid)
             {
+                admins.UpdatedAt = DateTime.UtcNow;
                 db.Entry(admins).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
