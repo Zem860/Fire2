@@ -111,7 +111,7 @@
                                                         <a href="news_show.html">@news.Title</a>
                                                     </h3>
                                                     <p>
-                                                        @Html.Raw(UtilHelper.ExtractFirstParagraphText(news.Content))
+                                                        @Html.Raw(UtilHelper.ExtractFirstCleanParagraph(news.Content))
                                                     </p>
                                                 </div>
                                                 <!-- header end -->

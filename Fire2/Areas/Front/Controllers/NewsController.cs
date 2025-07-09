@@ -29,7 +29,7 @@ namespace Fire2.Areas.Front.Controllers
             }
             int pageSize = 3;
 
-            var newsData = db.News.OrderBy(e => e.Id).AsQueryable();
+            var newsData = db.News.OrderByDescending(e => e.CreatedAt).AsQueryable();
             ViewBag.NewsData = newsData;
             return View(newsData.ToPagedList(page.Value, pageSize));
         }
