@@ -1,4 +1,6 @@
-﻿@model Fire2.Areas.Dashboard.Models.Admins
+﻿@inherits System.Web.Mvc.WebViewPage<Fire2.Areas.Dashboard.Models.Admins>
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
 
 @{
     ViewBag.Title = "Edit";
@@ -9,7 +11,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Admins</h4>
         <hr />
