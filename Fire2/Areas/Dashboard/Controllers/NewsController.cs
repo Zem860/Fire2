@@ -203,6 +203,8 @@ namespace Fire2.Areas.Dashboard.Controllers
                     news.CoverPhoto = $"/Uploads/{pos}/{fileName}";
                 }
                 news.UpdatedAt = DateTime.UtcNow;
+                db.Entry(news).Property(x => x.CreatedAt).IsModified = false;
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

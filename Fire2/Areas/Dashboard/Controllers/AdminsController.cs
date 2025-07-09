@@ -91,10 +91,13 @@ namespace Fire2.Areas.Dashboard.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Admins admins)
         {
+
             if (ModelState.IsValid)
             {
                 admins.UpdatedAt = DateTime.UtcNow;
                 db.Entry(admins).State = EntityState.Modified;
+                db.Entry(admins).Property(x => x.CreatedAt).IsModified = false;
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
