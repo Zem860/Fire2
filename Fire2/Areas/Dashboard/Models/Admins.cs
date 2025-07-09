@@ -56,5 +56,9 @@ namespace Fire2.Areas.Dashboard.Models
         [Column(TypeName = "DATETIME")]
         [Display(Name = "更新時間")]
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+
+        [MaxLength(100)]
+        [Display(Name = "權限")]
+        public string Permission { get; set; }
     }
 }
