@@ -40,6 +40,8 @@ namespace Fire2.Areas.Dashboard.Controllers
         // GET: Dashboard/Admins/Create
         public ActionResult Create()
         {
+            var tree = new TreeHelper();
+            ViewBag.Tree = tree.GetTree();
             return View();
         }
 
@@ -54,6 +56,8 @@ namespace Fire2.Areas.Dashboard.Controllers
             {
                 admins.Salt = UtilHelper.CreateSalt();
                 admins.PasswordHash = UtilHelper.GenerateHashWithSalt(admins.PasswordHash, admins.Salt);
+                admins.CreatedAt = DateTime.UtcNow;
+                admins.UpdatedAt = DateTime.UtcNow;
                 db.Admins.Add(admins);
                 db.SaveChanges();
                 return RedirectToAction("Index");
