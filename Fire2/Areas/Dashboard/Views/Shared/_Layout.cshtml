@@ -25,21 +25,30 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-dark d-md-none">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">@Html.ActionLink("Dashboard", "Index", "Home", new { area = "Dashboard" }, new { @class = "navbar-brand" })</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
-                <span class="navbar-toggler-icon"></span>
+
+    <nav class="w-100 h-25 bg-dark text-white ps-5 d-none d-md-flex justify-content-between align-items-center">
+        <!-- 左邊 Dashboard -->
+        <div>
+            @Html.ActionLink("Dashboard", "Index", "Home", new { area = "Dashboard" }, new { @class = "navbar-brand text-white text-decoration-none" })
+        </div>
+
+        <!-- 右邊 Account Dropdown -->
+        <div class="position-relative me-5">
+            <button class="btn btn-dark px-3 py-3 rounded" onclick="toggleDropdown()" id="accountButton">
+                Account ▼
             </button>
+            <div id="accountDropdown" class="bg-light text-dark position-absolute rounded shadow" style="right: 0; top: 100%; display: none; min-width: 180px; padding: 0.5rem 0;">
+                <a class="d-block px-4 py-2 text-dark text-decoration-none" href="@Url.Action("Index", "Admins", new { area = "Dashboard" })" style="transition: background-color 0.2s;">
+                    Admins
+                </a>
+                <a class="d-block px-4 py-2 text-dark text-decoration-none" href="@Url.Action("Logout", "Account", new { area = "Dashboard" })" style="transition: background-color 0.2s;">
+                    Logout
+                </a>
+            </div>
         </div>
     </nav>
 
-    <nav class="w-100 h-25 bg-dark text-white ps-5  d-none d-md-block">
-        <ul class="list-unstyled">
-            <li class="p-3"> @Html.ActionLink("Dashboard", "Index", "Home", new { area = "Dashboard" }, new { @class = "navbar-brand" })</li>
 
-        </ul>
-    </nav>
 
     <div class="container-fluid">
         <div class="row">
@@ -55,7 +64,13 @@
                             @Html.ActionLink("關於", "About", "Home", new { area = "Dashboard" }, new { @class = "nav-link" })
                         </li>
                         <li class="nav-item">
+                            @Html.ActionLink("關於頁內文", "Index", "AboutPageContents", new { area = "Dashboard" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
                             @Html.ActionLink("專家", "Index", "Experts", new { area = "Dashboard" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("新聞", "Index", "News", new { area = "Dashboard" }, new { @class = "nav-link" })
                         </li>
                     </ul>
                 </div>
@@ -95,5 +110,21 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById('accountDropdown');
+            dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+        }
+
+        // 點擊外部自動關閉 dropdown
+        window.addEventListener('click', function (e) {
+            const button = document.getElementById('accountButton');
+            const dropdown = document.getElementById('accountDropdown');
+            if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+    </script>
+
 </body>
 </html>

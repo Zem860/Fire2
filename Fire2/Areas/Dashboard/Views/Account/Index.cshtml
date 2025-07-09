@@ -3,7 +3,6 @@
     Layout = null;
 }
 
-
 @using System.Web.Mvc.Html;
 @using System.Web.Mvc;
 
@@ -12,53 +11,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
 
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
-        .HorizontalVerticalMiddle {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        body {
+            background-color: #f8f9fa;
         }
+
+        .navbar {
+            padding: 1rem 2rem;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .card {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            width: 100%;
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+
+        .hover-opacity {
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+            .hover-opacity:hover {
+                opacity: 1;
+            }
+
+
     </style>
 </head>
 <body>
-    <div class="HorizontalVerticalMiddle">
-        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand text-white" href="#">
+            Dashboard
+        </a>
+        <span class="text-white">Login</span>
+    </nav>
 
-            <div class="form-horizontal">
-                <h4>Login</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Account, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Account, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Account, "", new { @class = "text-danger" })
-                    </div>
+    <!-- Centered Login Form -->
+    <div class="container d-flex justify-content-center align-items-center" style="height: 90vh; background-image: url('https://static1.srcdn.com/wordpress/wp-content/uploads/overwatch-s-tracer-is-actually-a-character-from-blizzard-s-failed-mmo-titan-949976-2.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+        <div class="card p-4 hover-opacity" style="width: 100%; max-width: 400px;">
+            <h3 class="text-center mb-4">Login</h3>
+
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.Account, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Account, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Account, "", new { @class = "text-danger" })
                 </div>
 
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.PasswordHash, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.PasswordHash, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.PasswordHash, "", new { @class = "text-danger" })
-                    </div>
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.PasswordHash, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.PasswordHash, new { htmlAttributes = new { @class = "form-control", type = "password" } })
+                    @Html.ValidationMessageFor(model => model.PasswordHash, "", new { @class = "text-danger" })
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Login" class="btn btn-default" />
-                    </div>
-                </div>
-            </div>
-        }
 
+                <button type="submit" class="btn btn-primary">Login</button>
+            }
+        </div>
     </div>
 
-
+    <!-- Bootstrap 5 JS (optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
