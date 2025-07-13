@@ -32,13 +32,15 @@ namespace Fire2.Areas.Front.Models
 
         // 若你有需要上傳檔案的話，也可以放這個欄位
         public HttpPostedFileBase CertificateFile { get; set; }
-        [Display(Name = "相關年資合計(年)")]
-        [Required(ErrorMessage = "最高學歷為必填")]
-        public int TotalYears { get; set; }
+        //[Display(Name = "相關年資合計(年)")]
+        //[Required(ErrorMessage = "最高學歷為必填")]
+        //public int TotalYears { get; set; }
 
-        [Display(Name = "相關年資合計(月)")]
-        [Range(1, 12, ErrorMessage = "請輸入 1~12 的月份")]
-        public int TotalMonths { get; set; }
+        //[Display(Name = "相關年資合計(月)")]
+        //[Range(1, 12, ErrorMessage = "請輸入 1~12 的月份")]
+        //public int TotalMonths { get; set; }
+        // 加兩個 ViewModel
+        public List<ServiceHistoryViewModel> ServiceHistoriesViewModel { get; set; } = new List<ServiceHistoryViewModel>();
 
         [Required(ErrorMessage = "驗證碼必填")]
         [Display(Name = "驗證碼")]

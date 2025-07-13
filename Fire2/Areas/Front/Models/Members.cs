@@ -63,12 +63,12 @@ namespace Fire2.Areas.Front.Models
         public Membership MembershipType { get; set; }
 
 
-        [Required(ErrorMessage = "電話為必填")]
-        [RegularExpression(@"^(\+?\d{1,3}[- ]?)?\d{9,10}$", ErrorMessage = "電話格式錯誤")]
-        [Display(Name= "連絡電話(公)")] 
+        //[Required(ErrorMessage = "電話為必填")]
+        [RegularExpression(@"^(\d{2,4}-)?\d{6,8}$", ErrorMessage = "電話格式錯誤")]
+        [Display(Name = "連絡電話(公)")]
         public string Phone { get; set; }
 
-        [Required(ErrorMessage = "手機為必填")]
+        //[Required(ErrorMessage = "手機為必填")]
         [RegularExpression(@"^09\d{8}$", ErrorMessage = "手機格式錯誤")]
         [Display(Name = "連絡電話(私)")]
         public string Mobile { get; set; }
@@ -112,9 +112,12 @@ namespace Fire2.Areas.Front.Models
         [Display(Name = "最高學歷")]
         public string HighestEducation { get; set; }
 
-        [Required]
-        [MinLength(1, ErrorMessage = "至少填寫一筆服務經歷")]
         public virtual List<ServiceHistory> ServiceHistories { get; set; } = new List<ServiceHistory>();
+
+        [Required]
+        [Display(Name = "已驗證")]
+        [Column(TypeName = "bit")]
+        public bool IsVerified { get; set; } = false;
 
 
         [Required(ErrorMessage = "合計年資(年)為必填")]
@@ -125,11 +128,6 @@ namespace Fire2.Areas.Front.Models
         [Display(Name="合計年資(月)")]
         [Range(0, 12, ErrorMessage = "合計年資(月)請輸入0~12之間")]
         public int? TotalMonths { get; set; }
-
-        [Required(ErrorMessage = "驗證碼必填")]
-        [Display(Name = "驗證碼")]
-        public string Captcha { get; set; }
-
 
         [Column(TypeName = "DATETIME")]
         [Display(Name = "創建時間")]

@@ -183,6 +183,26 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    @Html.LabelFor(m => m.Member.Phone, htmlAttributes: new { @class = "col-sm-2 control-label" })
+                                    <div class="col-sm-7">
+                                        @Html.TextBoxFor(m => m.Member.Phone, new { @class = "form-control", placeholder = "請輸入連絡電話(公)" })
+                                    </div>
+                                    <div class="col-sm-3">
+                                        @Html.ValidationMessageFor(m => m.Member.Phone, "", new { @class = "alertred" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Member.Mobile, htmlAttributes: new { @class = "col-sm-2 control-label" })
+                                    <div class="col-sm-7">
+                                        @Html.TextBoxFor(m => m.Member.Mobile, new { @class = "form-control", placeholder = "請輸入連絡電話(私)" })
+                                    </div>
+                                    <div class="col-sm-3">
+                                        @Html.ValidationMessageFor(m => m.Member.Mobile, "", new { @class = "alertred" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     @Html.LabelFor(m => m.Member.Email, htmlAttributes: new { @class = "col-sm-2 control-label" })
                                     <div class="col-sm-7">
                                         @Html.TextBoxFor(m => m.Member.Email, new { @class = "form-control", placeholder = "請輸入email" })
@@ -235,10 +255,9 @@
                                 </div>
 
                                 <div class="form-group">
+                                    @Html.LabelFor(m => m.Member.HighestEducation, htmlAttributes: new { @class = "col-sm-2 control-label" })
+
                                     <div class="col-sm-7">
-                                        @Html.LabelFor(m => m.Member.HighestEducation, htmlAttributes: new { @class = "col-sm-2 control-label" })
-                                    </div>
-                                    <div class="col-sm-3">
                                         @Html.TextBoxFor(m => m.Member.HighestEducation, new { @class = "form-control", placeholder = "請輸入最高學歷" })
                                     </div>
                                     <div>
@@ -250,94 +269,162 @@
                                 <div class="boxg">
                                     <h4 class="col-sm-2"><i class="fa fa-briefcase"></i> 服務經歷</h4>
 
-
-
-
-
-                                    @for (int i = 0; i < Model.ServiceHistories.Count(); i++)
+                                    @for (int i = 0; i < Model.ServiceHistories.Count; i++)
                                     {
-                                        <div class="form-group">
+                                        <div class="service-history" data-index="@i">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.ServiceHistories[i].ServiceUnit, "服務單位", new { @class = "col-sm-2 control-label" })
+                                                <div class="col-sm-7">
 
-                                            @Html.LabelFor(m => m.ServiceHistories[i].ServiceUnit, "服務單位", new { @class = "col-sm-2 control-label" })
-                                            <div class="col-sm-7">
-                                                @Html.TextBoxFor(m => m.ServiceHistories[i].ServiceUnit, new { @class = "form-control", placeholder = "請輸入服務單位" })
-                                            </div>
-                                            @if (i == 0)
-                                            {
+                                                    @Html.TextBoxFor(m => m.ServiceHistories[i].ServiceUnit, new { @class = "form-control", placeholder = "請輸入服務單位" })
+
+                                                </div>
                                                 <div class="col-sm-3">
                                                     @Html.ValidationMessageFor(m => m.ServiceHistories[i].ServiceUnit, "", new { @class = "alertred" })
-                                                </div>}
-                                        </div>
-                                        <div class="form-group">
-                                            @Html.LabelFor(m => m.ServiceHistories[i].JobTitle, "職稱：", new { @class = "col-sm-2 control-label" })
-                                            <div class="col-sm-7">
-                                                @Html.TextBoxFor(m => m.ServiceHistories[i].JobTitle, new { @class = "form-control", placeholder = "請輸入職稱" })
+                                                </div>
                                             </div>
-                                            @if (i == 0)
-                                            {
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.ServiceHistories[i].JobTitle, "職稱：", new { @class = "col-sm-2 control-label" })
+                                                <div class="col-sm-7">
+
+                                                    @Html.TextBoxFor(m => m.ServiceHistories[i].JobTitle, new { @class = "form-control", placeholder = "請輸入職稱"})
+                                                </div>
                                                 <div class="col-sm-3">
+
                                                     @Html.ValidationMessageFor(m => m.ServiceHistories[i].JobTitle, "", new { @class = "alertred" })
-                                                </div>}
-                                        </div>
-                                        <div class="form-group">
-                                            @Html.LabelFor(m => m.ServiceHistories[i].StartYear, "起:", new { @class = "col-sm-2 control-label" })
-                                            <div class="col-sm-2">
-                                                @Html.TextBoxFor(m => m.ServiceHistories[i].StartYear, new { @class = "form-control", placeholder = "年" })
+
+                                                </div>
                                             </div>
-                                            <div class="col-sm-2">
-                                                @Html.TextBoxFor(m => m.ServiceHistories[i].StartMonth, new { @class = "form-control", placeholder = "月" })
-                                            </div>
-                                            @if (i == 0)
-                                            {
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.ServiceHistories[i].StartYear, "起:", new { @class = "col-sm-2 control-label" })
                                                 <div class="col-sm-2">
+
+                                                    @Html.TextBoxFor(m => m.ServiceHistories[i].StartYear, new { @class = "form-control", placeholder = "年" })
+                                                </div>
+                                                <div class="col-sm-2">
+
+                                                    @Html.TextBoxFor(m => m.ServiceHistories[i].StartMonth, new { @class = "form-control", placeholder = "月"})
+
+                                                </div>
+                                                <div class="col-sm-2">
+
                                                     @Html.ValidationMessageFor(m => m.ServiceHistories[i].StartYear, "", new { @class = "alertred" })
                                                     @Html.ValidationMessageFor(m => m.ServiceHistories[i].StartMonth, "", new { @class = "alertred" })
 
                                                 </div>
-                                            }
-
-
-                                        </div>
-
-                                        <div class="form-group">
-                                            @Html.LabelFor(m => m.Member.TotalYears, "相關年資合計：", new { @class = "col-sm-2 control-label" })
-
-                                            <div class="col-sm-2">
-                                                @Html.TextBoxFor(m => m.Member.TotalYears, new { @class = "form-control", placeholder = "合計年資(年)" })
-                                                @Html.ValidationMessageFor(m => m.Member.TotalYears, "", new { @class = "text-danger" })
                                             </div>
 
-                                            <div class="col-sm-2">
-                                                @Html.TextBoxFor(m => m.Member.TotalMonths, new { @class = "form-control", placeholder = "合計年資(月)" })
-                                                @Html.ValidationMessageFor(m => m.Member.TotalMonths, "", new { @class = "text-danger" })
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.ServiceHistories[i].EndYear, "迄:", new { @class = "col-sm-2 control-label" })
+                                                <div class="col-sm-2">
+
+                                                    @Html.TextBoxFor(m => m.ServiceHistories[i].EndYear, new { @class = "form-control", placeholder = "年"})
+
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    @Html.TextBoxFor(m => m.ServiceHistories[i].EndMonth, new { @class = "form-control", placeholder = "月" })
+                                                </div>
+                                                <div class="col-sm-2">
+
+                                                    @Html.ValidationMessageFor(m => m.ServiceHistories[i].EndYear, "", new { @class = "alertred" })
+                                                    @Html.ValidationMessageFor(m => m.ServiceHistories[i].EndMonth, "", new { @class = "alertred" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-2 col-sm-10">
+                                                    <span class="text-danger error-msg"></span>
+                                                </div>
                                             </div>
                                         </div>
+                                    }
+                                    @for (int i = 0; i < Model.ServiceHistoriesViewModel.Count; i++)
+                                    {
+                                        <div class="service-history" data-index="@i">
+                                            <!-- 服務單位 -->
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label" for="ServiceUnit_@i">服務單位</label>
+                                                <div class="col-sm-7">
+                                                    <input class="form-control"
+                                                           type="text"
+                                                           id="ServiceUnit_@i"
+                                                           name="ServiceHistoriesViewModel[@i].ServiceUnit"
+                                                           value="@Model.ServiceHistoriesViewModel[i].ServiceUnit"
+                                                           placeholder="請輸入服務單位" />
+                                                </div>
+                                            </div>
 
+                                            <!-- 職稱 -->
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label" for="JobTitle_@i">職稱：</label>
+                                                <div class="col-sm-7">
+                                                    <input class="form-control"
+                                                           type="text"
+                                                           id="JobTitle_@i"
+                                                           name="ServiceHistoriesViewModel[@i].JobTitle"
+                                                           value="@Model.ServiceHistoriesViewModel[i].JobTitle"
+                                                           placeholder="請輸入職稱" />
+                                                </div>
+                                            </div>
 
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label" for="startYear">起：</label>
+                                                <div class="col-sm-2">
+                                                    <input class="form-control"
+                                                           type="text"
+                                                           id="StartYear_@i"
+                                                           name="ServiceHistoriesViewModel[@i].StartYear"
+                                                           value="@Model.ServiceHistoriesViewModel[i].StartYear"
+                                                           placeholder="年" />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input class="form-control"
+                                                           type="text"
+                                                           id="StartMonth_@i"
+                                                           name="ServiceHistoriesViewModel[@i].StartMonth"
+                                                           value="@Model.ServiceHistoriesViewModel[i].StartMonth"
+                                                           placeholder="月" />
+                                                </div>
+                                            </div>
 
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label" for="endYear">迄：</label>
+                                                <div class="col-sm-2">
+                                                    <input class="form-control"
+                                                           type="text"
+                                                           id="EndYear_@i"
+                                                           name="ServiceHistoriesViewModel[@i].EndYear"
+                                                           value="@Model.ServiceHistoriesViewModel[i].EndYear"
+                                                           placeholder="年" />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input class="form-control"
+                                                           type="text"
+                                                           id="EndMonth_@i"
+                                                           name="ServiceHistoriesViewModel[@i].EndMonth"
+                                                           value="@Model.ServiceHistoriesViewModel[i].EndMonth"
+                                                           placeholder="月" />
+                                                </div>
+                                            </div>
 
+                                        </div>
                                     }
 
 
                                 </div>
 
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.TotalYears, "相關年資合計：", new { @class = "col-sm-2 control-label" })
+                                    @Html.LabelFor(m => m.Member.TotalYears, "相關年資合計：", new { @class = "col-sm-2 control-label" })
                                     <div class="col-sm-2">
                                         @Html.TextBoxFor(m => m.Member.TotalYears, new { @class = "form-control", placeholder = "合計年資(年)" })
-
+                                        @Html.ValidationMessageFor(m => m.Member.TotalYears, "", new { @class = "alertred" })
                                     </div>
                                     <div class="col-sm-2">
                                         @Html.TextBoxFor(m => m.Member.TotalMonths, new { @class = "form-control", placeholder = "合計年資(月)" })
-
+                                        @Html.ValidationMessageFor(m => m.Member.TotalMonths, "", new { @class = "alertred" })
                                     </div>
-
-                                        <div class="col-sm-2">
-                                            @Html.ValidationMessageFor(m => m.Member.TotalYears, "", new { @class = "alertred" })
-                                            @Html.ValidationMessageFor(m => m.Member.TotalMonths, "", new { @class = "alertred" })
-
-                                        </div>
-                                    
                                 </div>
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.Captcha, "驗證碼:", new { @class = "col-sm-2 control-label" })
