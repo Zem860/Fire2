@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Fire2.Areas.Front.Helper;
@@ -43,7 +45,7 @@ namespace Fire2.Areas.Front.Controllers
         }
 
         [HttpPost]
-        public ActionResult SubmitRegister(MemberRegisterViewModel model, string Captcha)
+        public ActionResult SubmitRegister(MemberRegisterViewModel model, string Captcha, HttpPostedFileBase CertificateFile)
         {
             if (!ModelState.IsValid)
             {
@@ -77,6 +79,14 @@ namespace Fire2.Areas.Front.Controllers
             model.Member.PasswordHash = Convert.ToBase64String(hashedPwd);
             model.Member.Salt = Convert.ToBase64String(salt);
             model.Member.IsVerified = false;
+            if (CertificateFile!=null && CertificateFile.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(CertificateFile.FileName);
+                var filePath = Server.MapPath("~/Uploads/Certificates/" + fileName);
+                CertificateFile.SaveAs(filePath);
+                var fileUrl = Url.Content("~/Uploads/Certificates/" + fileName);
+                model.Member.InternationalCertificatePath = fileUrl; // 儲存檔案路徑
+            }
             db.Members.Add(model.Member);
             db.SaveChanges(); // 拿到 Member.Id
 
@@ -88,6 +98,7 @@ namespace Fire2.Areas.Front.Controllers
 
             foreach (var svm in model.ServiceHistoriesViewModel)
             {
+                //檢查這裡的historyviewmodel是否完整，若完整就將資料轉成model存進資料庫
                 SaveSvmIfComplete(svm, model.Member.Id);
             }
 
