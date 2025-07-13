@@ -93,7 +93,7 @@ namespace Fire2.Areas.Front.Controllers
 
             db.SaveChanges();
 
-            TempData["Success"] = "註冊成功！";
+            TempData["Success"] = "會員資料已送出審核!";
             Session.Remove("CaptchaCode");
 
             return RedirectToAction("Register");
