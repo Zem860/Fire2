@@ -25,10 +25,24 @@ namespace Fire2.Areas.Dashboard.Controllers
         }
 
         [AllowAnonymous]
+        //public ActionResult Logout()
+        //{
+        //    FormsAuthentication.SignOut();
+        //    return RedirectToAction("Index");
+        //}
         public ActionResult Logout()
         {
+            if (Request.Cookies[".DashboardAuth"] != null)
+            {
+                var cookie = new HttpCookie(".DashboardAuth")
+                {
+                    Expires = DateTime.Now.AddDays(-1)
+                };
+                Response.Cookies.Add(cookie);
+            }
+
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Account");
         }
 
         [HttpPost]
@@ -40,9 +54,9 @@ namespace Fire2.Areas.Dashboard.Controllers
                 return View("Index", login);
             }
 
-            Admins member = ValidateUser(login.Account, login.PasswordHash);
+            Admins admin = ValidateUser(login.Account, login.PasswordHash);
             //只要是null都是失敗
-            if (member == null)
+            if (admin == null)
             {
                 ViewBag.Message = "登入失敗";
                 return RedirectToAction("Index", "Account", login);
@@ -50,8 +64,8 @@ namespace Fire2.Areas.Dashboard.Controllers
 
             //登入成功
             //驗鄭成功就做表單驗證
-            string userData = JsonConvert.SerializeObject(member);
-            UtilHelper.SetAuthenTicket(userData, member.Id.ToString());
+            string userData = JsonConvert.SerializeObject(admin);
+            FormsAuthentication.SetAuthCookie(admin.Account, false);
 
             return RedirectToAction("Index", "Home");
         }

@@ -55,20 +55,43 @@ namespace Fire2.Areas.Dashboard.Helper
         /// </summary>
         /// <param name="userData">使用者資料</param>
         /// <param name="userId">UserAccount</param>
-        public static void SetAuthenTicket(string userData, string userId)
+        //public static void SetAuthenTicket(string userData, string userId)
+        //{
+        //    //宣告一個驗證票
+        //    FormsAuthenticationTicket ticket =
+        //        new FormsAuthenticationTicket(1, userId, DateTime.Now, DateTime.Now.AddHours(3), false, userData);
+        //    //加密驗證票
+        //    string encryptedTicket = FormsAuthentication.Encrypt(ticket);
+        //    //建立Cookie
+        //    HttpCookie authenticationcookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+        //    //將Cookie寫入回應
+
+        //    HttpContext.Current.Response.Cookies.Add(authenticationcookie);
+
+        //}
+        public static void SetAuthenTicket(string userData, string userId, string cookieName = null)
         {
-            //宣告一個驗證票
-            FormsAuthenticationTicket ticket =
-                new FormsAuthenticationTicket(1, userId, DateTime.Now, DateTime.Now.AddHours(3), false, userData);
-            //加密驗證票
+            // 如果沒有指定，用區域判斷
+            if (string.IsNullOrEmpty(cookieName))
+            {
+                if (HttpContext.Current.Request.Url.AbsolutePath.StartsWith("/Dashboard", StringComparison.OrdinalIgnoreCase))
+                {
+                    cookieName = ".DashboardAuth";
+                }
+                else
+                {
+                    cookieName = FormsAuthentication.FormsCookieName; // 預設 .ASPXAUTH
+                }
+            }
+
+            var ticket = new FormsAuthenticationTicket(
+                1, userId, DateTime.Now, DateTime.Now.AddHours(3), false, userData);
+
             string encryptedTicket = FormsAuthentication.Encrypt(ticket);
-            //建立Cookie
-            HttpCookie authenticationcookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-            //將Cookie寫入回應
-
-            HttpContext.Current.Response.Cookies.Add(authenticationcookie);
-
+            var cookie = new HttpCookie(cookieName, encryptedTicket);
+            HttpContext.Current.Response.Cookies.Add(cookie);
         }
+
 
         /// <summary>
         /// 擷取第一個 &lt;p&gt; 標籤中的 HTML 內容（保留格式）
