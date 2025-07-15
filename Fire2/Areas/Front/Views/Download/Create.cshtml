@@ -1,0 +1,200 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Fire2.Areas.Front.Models.Posts>
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<!DOCTYPE html>
+<html>
+<body>
+    <div class="body-inner">
+        <!-- Header start -->
+        <!--/ Navigation end -->
+        <div id="banner-area" class="banner-area" style="background-image:url('@Url.Content("~/Content/images/banner-bg.jpg")')">
+            <!-- Subpage title start -->
+            <div class="banner-text text-right">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <ul class="breadcrumb">
+                                <li>首頁</li>
+                                <li>會員專區</li>
+                                <li><a href="#"> 會員登入</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Subpage title end -->
+        </div>
+        <!-- Banner area end -->
+        <section id="main-container" class="main-container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="sidebar sidebar-right">
+                            <div class="widget">
+                                <h2 class="widget-title"><i class="fa fa-folder-open-o">&nbsp;</i>會員專區</h2>
+                                <ul class="arrow nav nav-tabs nav-stacked">
+                                    <li><a href="#">討論區</a></li>
+                                    <li><a href="#">修改個人資料</a></li>
+                                    <li><a href="#">登出</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sidebar Col end -->
+
+                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                        <h2 class="page-title">討論區</h2>
+
+                        @using (Html.BeginForm("Create", "Download", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <h4>News</h4>
+                        <hr />
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.Content, new { @class = "form-control", id = "editor" })
+
+                                @*@Html.EditorFor(model => model.Education, new { htmlAttributes = new { @class = "form-control" } })*@
+                                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="發表" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                        }
+
+
+                        <div class="paging text-center">
+                            <div class="pagination">
+
+                                <span class="disabled">«</span><span class="current">1</span><span class="disabled">»</span>
+                            </div>
+                        </div>
+
+
+                        <!-- Content row 1 end -->
+                        <!-- 內容結束 -->
+
+                        <div class="tags-area clearfix">
+
+                            <div class="share-items pull-right" style="display: none">
+                                <ul class="post-social-icons unstyled">
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Content Col end -->
+                    <!-- 內容結束 -->
+                </div>
+                <!-- Main row end -->
+            </div>
+            <!-- Conatiner end -->
+        </section>
+        <!-- Main container end -->
+        <!-- Footer start -->
+        <footer id="footer" class="footer">
+            <div class="container">
+                <div class="row copyright">
+                    <div class="col-xs-12 col-sm-7">
+                        <div class="copyright-info">
+                            <span>
+                                國際縱火調查人員協會臺灣分會版權所有<br>
+                                Copyright © 2016 International Association of Arson Investigators Taiwan Chapter. All Rights Reserved.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-push-1">
+                        <div class="footer-menu">
+                            <a class="btn btn-dark" href="#" title="財產權宣告">財產權宣告</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Copyright end -->
+                <div id="back-to-top" data-spy="affix" data-offset-top="10" class="back-to-top affix">
+                    <button class="btn btn-primary" title="Back to Top">
+                        <i class="fa fa-angle-double-up"></i>
+                    </button>
+                </div>
+            </div>
+            <!--/ Container end -->
+        </footer>
+        <!-- Footer end -->
+        <!-- Javascript Files
+        ================================================== -->
+        <!-- initialize jQuery Library -->
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <!-- Bootstrap jQuery -->
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <!-- Owl Carousel -->
+        <script type="text/javascript" src="js/owl.carousel.min.js"></script>
+        <!-- Counter -->
+        <script type="text/javascript" src="js/jquery.counterup.min.js"></script>
+        <!-- Waypoints -->
+        <script type="text/javascript" src="js/waypoints.min.js"></script>
+        <!-- Color box -->
+        <script type="text/javascript" src="js/jquery.colorbox.js"></script>
+        <!-- Isotope -->
+        <script type="text/javascript" src="js/isotope.js"></script>
+        <script type="text/javascript" src="js/ini.isotope.js"></script>
+        <!-- Google Map API Key Source -->
+        <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+        <!-- For Google Map -->
+        <!-- Doc http://www.mkyong.com/google-maps/google-maps-api-hello-world-example/ -->
+        <script type="text/javascript" src="js/gmap3.min.js"></script>
+        <!-- Template custom -->
+        <script type="text/javascript" src="js/custom.js"></script>
+    </div>
+    <!-- Body inner end -->
+</body>
+
+</html>
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+    CKEDITOR.replace('editor', {
+        // 這裡可設定 toolbar 或其他 CKEditor 4 的選項
+        toolbar: [
+            ['Source', '-', 'Bold', 'Italic', 'Underline', 'Strike'],
+            ['NumberedList', 'BulletedList'],
+            ['Link', 'Unlink'],
+            ['Image', 'Table', 'HorizontalRule'],
+            ['Format', 'Font', 'FontSize'],
+            ['TextColor', 'BGColor'],
+            ['Maximize', 'ShowBlocks']
+        ],
+        filebrowserUploadUrl: '/Front/Download/UploadImage', // 你要實作的上傳處理位置
+        filebrowserUploadMethod: 'form'
+    });
+</script>
