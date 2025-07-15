@@ -5,9 +5,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Fire2.Areas.Front.Helper;
 using Fire2.Areas.Front.Models;
 using Fire2.Models;
+using Newtonsoft.Json;
+
 
 namespace Fire2.Areas.Front.Controllers
 {
@@ -35,7 +38,7 @@ namespace Fire2.Areas.Front.Controllers
                 Member = new Members
                 {
                     Gender = Gender.男,
-                    MembershipType = Membership.正式會員
+                    MembershipType = Models.Membership.正式會員,
                 },
                 ServiceHistories = new List<ServiceHistory> { new ServiceHistory() },
                 ServiceHistoriesViewModel = new List<ServiceHistoryViewModel> { new ServiceHistoryViewModel(), new ServiceHistoryViewModel() }
@@ -43,6 +46,86 @@ namespace Fire2.Areas.Front.Controllers
 
             return View(ViewModel);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(LoginViewModel login)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Download", login);
+            }
+
+            Members member = ValidateUser(login.Account, login.PasswordHash);
+            //只要是null都是失敗
+            if (member == null)
+            {
+                ViewBag.Message = "登入失敗";
+                return RedirectToAction("Login", "Member", login);
+            }
+
+            //登入成功
+            //驗鄭成功就做表單驗證
+            var simpleMember = new
+            {
+                Id = member.Id,
+                Name = member.Account,
+            };
+            string userData = JsonConvert.SerializeObject(simpleMember);
+            SetAuthenTicket(userData, member.Id.ToString(), this.HttpContext);
+
+            return RedirectToAction("Download", "Member");
+        }
+
+        private Members ValidateUser(string account, string password)
+        {
+            //改寫成member的另外一個加密雜湊
+            //確認帳號是否存在
+
+            Members member = db.Members.FirstOrDefault(a => a.Account == account && a.IsVerified);
+            if (member == null)
+            {
+                return null;
+            }
+            //確認密碼是否正確
+            //資料庫資料
+            string dbPassword = member.PasswordHash;
+            byte[] salt = Convert.FromBase64String(member.Salt);
+
+            // 雜湊處理
+            var userHash = new HashPasswordHelper();
+
+            var hashedPwd = Convert.ToBase64String(userHash.HashPassword(password, salt));
+
+            if (hashedPwd != dbPassword)
+            {
+                return null;
+            }
+            return member;
+        }
+
+        public static void SetAuthenTicket(string userData, string userId, HttpContextBase context)
+        {
+            // 宣告一個驗證票
+            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
+                1,                // 版本
+                userId,           // 使用者名稱
+                DateTime.Now,     // 建立時間
+                DateTime.Now.AddHours(3), // 到期時間
+                false,            // 是否持久性 (Remember Me)
+                userData          // 使用者資料
+            );
+
+            // 加密驗證票
+            string encryptedTicket = FormsAuthentication.Encrypt(ticket);
+
+            // 建立前台專用 Cookie
+            HttpCookie authCookie = new HttpCookie(".FrontAuth", encryptedTicket);
+
+            // 將 Cookie 寫入回應
+            context.Response.Cookies.Add(authCookie);
+        }
+
 
         [HttpPost]
         public ActionResult SubmitRegister(MemberRegisterViewModel model, string Captcha, HttpPostedFileBase CertificateFile)
@@ -137,17 +220,46 @@ namespace Fire2.Areas.Front.Controllers
             db.ServiceHistories.Add(entity);
         }
 
+
+        [Authorize]
         public ActionResult Download()
         {
-            if (Session["User"] == null)
+            // 取得目前的 FormsAuthentication Ticket
+            var authCookie = System.Web.HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (authCookie == null)
             {
-                return RedirectToAction("Login");
+                // 沒有 cookie，導回後台登入
+                return RedirectToAction("Index", "Account", new { area = "Dashboard" });
+            }
 
-            }
-            else
+            try
             {
-                return View();
+                // 解密 cookie
+                var ticket = FormsAuthentication.Decrypt(authCookie.Value);
+                var userId = ticket.Name; // 我假設 Name 存的是 Admin 的 Id
+                var db = new Model1();
+
+                // 查資料庫確認 Admin 是否存在
+                var admin = db.Members.FirstOrDefault(m => m.Id.ToString() == userId);
+                if (admin == null)
+                {
+                    // 沒這個人，清除 cookie 並導回後台登入
+                    FormsAuthentication.SignOut();
+                    return RedirectToAction("Login", "Member", new { area = "Front" });
+                }
+
+                // ✅ 有找到，允許進入
+                return RedirectToAction("Index", "Download", new { area = "Front" });
             }
+            catch
+            {
+                // 解密失敗或其他錯誤，清除 cookie 並導回後台登入
+                FormsAuthentication.SignOut();
+                return RedirectToAction("Index", "Account", new { area = "Dashboard" });
+            }
+
+            return View();
+            
         }
     }
 }
