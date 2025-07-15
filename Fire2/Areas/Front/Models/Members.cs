@@ -63,12 +63,12 @@ namespace Fire2.Areas.Front.Models
         public Membership MembershipType { get; set; }
 
 
-        //[Required(ErrorMessage = "電話為必填")]
+        [Required(ErrorMessage = "電話為必填")]
         [RegularExpression(@"^(\d{2,4}-)?\d{6,8}$", ErrorMessage = "電話格式錯誤")]
         [Display(Name = "連絡電話(公)")]
         public string Phone { get; set; }
 
-        //[Required(ErrorMessage = "手機為必填")]
+        [Required(ErrorMessage = "手機為必填")]
         [RegularExpression(@"^09\d{8}$", ErrorMessage = "手機格式錯誤")]
         [Display(Name = "連絡電話(私)")]
         public string Mobile { get; set; }
@@ -135,6 +135,8 @@ namespace Fire2.Areas.Front.Models
         [Column(TypeName = "DATETIME")]
         [Display(Name = "更新時間")]
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+
+        public virtual ICollection<Posts> Posts { get; set; }
 
     }
 }
