@@ -20,7 +20,8 @@ namespace Fire2.Areas.Front.Controllers
         // GET: Front/Posts
         public ActionResult Index()
         {
-            var posts = db.Posts.Include(p => p.Member);
+            var posts = db.Posts.Include(p => p.Member).AsQueryable();
+            posts = posts.OrderByDescending(p => p.CreatedAt);
             return View(posts.ToList());
         }
 
@@ -81,15 +82,19 @@ namespace Fire2.Areas.Front.Controllers
                 {
                     FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
                     posts.MemberId = Convert.ToInt32(ticket.Name);                  
-                }
+                } else
+                {
+                    FormsAuthentication.SignOut();
 
+                    return RedirectToAction("Login", "Member", new { area = "Front" }); 
+                }
 
                 db.Posts.Add(posts);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MemberId = new SelectList(db.Members, "Id", "Account", posts.MemberId);
+            //ViewBag.MemberId = new SelectList(db.Members, "Id", "Account", posts.MemberId);
             return RedirectToAction("Index", "Download", new { area = "Front" });
         }
 
