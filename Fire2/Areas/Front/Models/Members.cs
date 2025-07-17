@@ -137,6 +137,8 @@ namespace Fire2.Areas.Front.Models
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
         public virtual ICollection<Posts> Posts { get; set; }
+        public virtual ICollection<Comments> Comments { get; set; }
+
 
     }
 }

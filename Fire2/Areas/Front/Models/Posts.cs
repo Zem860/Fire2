@@ -37,6 +37,8 @@ namespace Fire2.Areas.Front.Models
         [Column(TypeName = "DATETIME")]
         [Display(Name = "更新時間")]
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
+        public virtual ICollection<Comments> Comments { get; set; }
+
 
     }
 }
