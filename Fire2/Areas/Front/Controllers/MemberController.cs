@@ -10,6 +10,7 @@ using Fire2.Areas.Front.Helper;
 using Fire2.Areas.Front.Models;
 using Fire2.Models;
 using Newtonsoft.Json;
+using static System.Data.Entity.Infrastructure.Design.Executor;
 
 
 namespace Fire2.Areas.Front.Controllers
@@ -256,10 +257,125 @@ namespace Fire2.Areas.Front.Controllers
                 // 解密失敗或其他錯誤，清除 cookie 並導回後台登入
                 FormsAuthentication.SignOut();
                 return RedirectToAction("Index", "Account", new { area = "Dashboard" });
+            }       
+        }
+
+        public ActionResult DownloadMemberFile(string fileName)
+        {
+            var path = Server.MapPath("~/" + fileName);
+            string contentType = MimeMapping.GetMimeMapping(path);
+            return File(path, contentType, fileName);
+        }
+
+        public ActionResult Edit()
+        {
+            var authCookie = System.Web.HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (authCookie == null)
+            {
+                return RedirectToAction("Login", "Member", new { area = "Front" }); // 沒有 cookie，導回前台登入
             }
 
-            return View();
+            var ticket = FormsAuthentication.Decrypt(authCookie.Value);
+            var userId = ticket.Name; // 我假設 Name 存的是 Admin 的 Id
+            var member = db.Members.Include("ServiceHistories")
+                .FirstOrDefault(m => m.Id.ToString() == userId);
+            if (member ==null)
+            {
+                //看看之後要不要多一個標籤改已刪除
+                return HttpNotFound();
+            }
+            var serviceHistoriesCount = member.ServiceHistories.Count;
+            List<ServiceHistoryViewModel> sh = new List<ServiceHistoryViewModel>() { };
+            if (serviceHistoriesCount < 3)
+            {
+                for (int i = 0; i < (3 - serviceHistoriesCount);i++)
+                {
+                    sh.Add(new ServiceHistoryViewModel());
+                }
+            }
+
+            var vm = new MemberRegisterViewModel
+            {
+                Member = member,
+                ServiceHistories = member.ServiceHistories.ToList(),
+                ServiceHistoriesViewModel = sh,
+                Captcha="",
+            };
+
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(MemberRegisterViewModel model, HttpPostedFileBase CertificateFile)
+        {
+            var member = db.Members.Find(model.Member.Id);
+            if (member == null)
+            {
+                return HttpNotFound();
+            }
+            ModelState.Remove("Captcha");
+
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Where(x => x.Value.Errors.Count > 0)
+                       .Select(x => new { x.Key, x.Value.Errors })
+                       .ToList();
+
+                return HttpNotFound();
+            }
+
+                member.Name = model.Member.Name;
+            member.Email = model.Member.Email;
+            member.Phone = model.Member.Phone;
+            member.Mobile = model.Member.Mobile;
+            member.Account = model.Member.Account;
+            member.Address = model.Member.Address;
+            member.Gender = model.Member.Gender;
+            member.Birthday = model.Member.Birthday;
+            member.MembershipType = model.Member.MembershipType;
+
+            member.IsInternationalMember = model.Member.IsInternationalMember;
+            member.CurrentOrgnization = model.Member.CurrentOrgnization;
+            member.JobTitle = model.Member.JobTitle;
+            member.HighestEducation = model.Member.HighestEducation;
+            member.TotalYears=model.Member.TotalYears;
+            member.TotalMonths = model.Member.TotalMonths;
+            member.UpdatedAt = DateTime.UtcNow;
+
+            if (CertificateFile != null && CertificateFile.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(CertificateFile.FileName);
+                var filePath = Server.MapPath("~/Uploads/Certificates/" + fileName);
+                CertificateFile.SaveAs(filePath);
+                var fileUrl = Url.Content("~/Uploads/Certificates/" + fileName);
+                member.InternationalCertificatePath = fileUrl; // 儲存檔案路徑
+            }
+
+
+            var serviceHistories = db.ServiceHistories.Where(sh => sh.MemberId == model.Member.Id).ToList();
             
+            for (int i = 0; i < serviceHistories.Count(); i ++){
+                var existing = serviceHistories[i];
+                var updating = model.ServiceHistories[i];
+                existing.ServiceUnit = updating.ServiceUnit;
+                existing.JobTitle = updating.JobTitle;
+                existing.StartYear = updating.StartYear;
+                existing.StartMonth = updating.StartMonth;
+                existing.EndYear = updating.EndYear;
+                existing.EndMonth = updating.EndMonth;
+
+            }
+
+            foreach (var svm in model.ServiceHistoriesViewModel)
+            {
+                //檢查這裡的historyviewmodel是否完整，若完整就將資料轉成model存進資料庫
+                SaveSvmIfComplete(svm, model.Member.Id);
+            }
+
+            db.SaveChanges();
+
+            return RedirectToAction("Logout", "Download");
         }
     }
 }
