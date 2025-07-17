@@ -1,4 +1,4 @@
-﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Fire2.Areas.Front.Models.Posts>>
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Fire2.Areas.Front.Models.PostWithMetaViewModel>>
 @using System.Web.Mvc
 @using System.Web.Mvc.Html
 
@@ -45,7 +45,7 @@
                                 <ul class="arrow nav nav-tabs nav-stacked">
                                     <li><a href="#">討論區</a></li>
                                     <li><a href="#">修改個人資料</a></li>
-                                    <li><a href="#">登出</a></li>
+                                    <li><a href="@Url.Action("Logout", "Download", new { area = "Front" })" >登出</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -87,18 +87,18 @@
                                 {
                                     <tr>
                                         <td>
-                                            <a href="@Url.Action("Details", "Download", new {id=item.Id})">@item.Title</a>
+                                            <a href="@Url.Action("Details", "Download", new { id = item.PostId })">@item.Title</a>
                                         </td>                      
                                         <td>
-                                            @item.Member.Name <br/>
-                                            @item.CreatedAt.ToString("MM/dd/yyyy")
+                                            @item.PostAuthor <br/>
+                                            @item.PostCreatedAt.ToString("MM/dd/yyyy")
                                         </td>                            
                                         <td>
-                                            余子廉                                                 <br>
-                                            2016/11/14
+                                            @item.LatestCommentAuthor                                              <br>
+                                            @item.CommentDate.ToString("MM/dd/yyyy")
                                         </td>                   
                                     <td>
-                                        0
+                                       @item.CommentCount
                                     </td>
                                         </tr>
                                 }
