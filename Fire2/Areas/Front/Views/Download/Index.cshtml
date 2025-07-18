@@ -1,6 +1,7 @@
-﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Fire2.Areas.Front.Models.PostWithMetaViewModel>>
+﻿@inherits System.Web.Mvc.WebViewPage<IPagedList<Fire2.Areas.Front.Models.PostWithMetaViewModel>>
 @using System.Web.Mvc
 @using System.Web.Mvc.Html
+@using MvcPaging
 
 @{
     ViewBag.Title = "Index";
@@ -43,9 +44,9 @@
                             <div class="widget">
                                 <h2 class="widget-title"><i class="fa fa-folder-open-o">&nbsp;</i>會員專區</h2>
                                 <ul class="arrow nav nav-tabs nav-stacked">
-                                    <li><a href="#">討論區</a></li>
-                                    <li><a href="#">修改個人資料</a></li>
-                                    <li><a href="@Url.Action("Logout", "Download", new { area = "Front" })" >登出</a></li>
+                                    <li><a href="@Url.Action("Index", "Download", new { area = "Front" })">討論區</a></li>
+                                    <li><a href="@Url.Action("Edit", "Member", new { area = "Front" })">修改個人資料</a></li>
+                                    <li><a href="@Url.Action("Logout", "Download", new { area = "Front" })">登出</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -88,43 +89,42 @@
                                     <tr>
                                         <td>
                                             <a href="@Url.Action("Details", "Download", new { id = item.PostId })">@item.Title</a>
-                                        </td>                      
+                                        </td>
                                         <td>
-                                            @item.PostAuthor <br/>
+                                            @item.PostAuthor <br />
                                             @item.PostCreatedAt.ToString("MM/dd/yyyy")
-                                        </td>                            
+                                        </td>
                                         <td>
                                             @item.LatestCommentAuthor                                              <br>
                                             @item.CommentDate.ToString("MM/dd/yyyy")
-                                        </td>                   
-                                    <td>
-                                       @item.CommentCount
-                                    </td>
-                                        </tr>
+                                        </td>
+                                        <td>
+                                            @item.CommentCount
+                                        </td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>
 
-                            <div class="paging text-center">
-                                <div class="pagination">
-
-                                    <span class="disabled">«</span><span class="current">1</span><span class="disabled">»</span>
-                                </div>
+                        <div class="paging text-center">
+                            <div class="pager paging text-center pagination">
+                                @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
                             </div>
+                        </div>
 
-                            <!-- Content row 1 end -->
-                            <!-- 內容結束 -->
+                                  <!-- Content row 1 end -->
+                        <!-- 內容結束 -->
 
-                            <div class="tags-area clearfix">
+                        <div class="tags-area clearfix">
 
-                                <div class="share-items pull-right" style="display: none">
-                                    <ul class="post-social-icons unstyled">
-                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                    </ul>
-                                </div>
+                            <div class="share-items pull-right" style="display: none">
+                                <ul class="post-social-icons unstyled">
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                </ul>
                             </div>
+                        </div>
 
                     </div>
                     <!-- Content Col end -->

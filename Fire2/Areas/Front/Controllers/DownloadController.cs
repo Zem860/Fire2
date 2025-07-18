@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Fire2.Areas.Front.Models;
 using Fire2.Models;
+using MvcPaging;
 
 namespace Fire2.Areas.Front.Controllers
 {
@@ -34,11 +35,22 @@ namespace Fire2.Areas.Front.Controllers
         }
 
         // GET: Front/Posts
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             HttpCookie authCookie = this.HttpContext.Request.Cookies[".FrontAuth"];
             if (authCookie != null)
             {
+                if (!page.HasValue)
+                {
+                    page = 0;
+                }
+                else
+                {
+                    page--;
+                }
+                int pageSize = 3;
+
+
                 var posts = db.Posts.Include(p => p.Member).
                 Include(p => p.Comments).
                 OrderByDescending(p => p.CreatedAt).
@@ -54,7 +66,7 @@ namespace Fire2.Areas.Front.Controllers
                 });
 
 
-                return View(posts.ToList());
+                return View(posts.ToPagedList(page.Value, pageSize));
             }
             else
             {
