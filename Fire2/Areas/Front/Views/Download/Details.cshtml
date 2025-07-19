@@ -1,7 +1,8 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<Fire2.Areas.Front.Models.Posts>
-
+@using MvcPaging
 @{
     ViewBag.Title = "Details";
+    var pagedComments = (IPagedList<Fire2.Areas.Front.Models.CommentViewModel>)ViewBag.Comments;
 }
 
 <!DOCTYPE html>
@@ -132,7 +133,7 @@
                         <a class="respon" href="/Download/CreateRe/@Model.Id">回應文章</a>
                         <div class="clear"></div>
 
-                        @foreach (var comment in ViewBag.Comments)
+                        @foreach (var comment in pagedComments)
                         {
                             <div class="post">
                                 <div class="row">
@@ -162,14 +163,9 @@
                                 </div>
                             </div>
                         }
-
-
-
-
                         <div class="paging text-center">
-                            <div class="pagination">
-
-                                <span class="disabled">«</span><span class="current">1</span><span class="disabled">»</span>
+                            <div class="pager paging text-center pagination">
+                                @Html.Pager(pagedComments.PageSize, pagedComments.PageNumber, pagedComments.TotalItemCount)
                             </div>
                         </div>
 

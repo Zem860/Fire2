@@ -78,12 +78,23 @@ namespace Fire2.Areas.Front.Controllers
         }
 
         // GET: Front/Posts/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, int? page)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            if (!page.HasValue)
+            {
+                page = 0;
+            }
+            else
+            {
+                page--;
+            }
+            int pageSize = 3;
+
             Posts posts = db.Posts.Include(p => p.Member).FirstOrDefault(p => p.Id == id);
             var comments = from c in db.Comments
                            join m in db.Members on c.MemberId equals m.Id
@@ -100,7 +111,7 @@ namespace Fire2.Areas.Front.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Comments = comments.ToList();
+            ViewBag.Comments = comments.ToPagedList(page.Value, pageSize);
             return View(posts);
         }
 
