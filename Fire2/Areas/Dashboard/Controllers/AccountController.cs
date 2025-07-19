@@ -59,7 +59,7 @@ namespace Fire2.Areas.Dashboard.Controllers
             if (admin == null)
             {
                 ViewBag.Message = "登入失敗";
-                return RedirectToAction("Index", "Account", login);
+                return RedirectToAction("Index", "Account", new { area = "Dashboard" });
             }
 
             //登入成功
