@@ -38,9 +38,9 @@
                             <div class="widget">
                                 <h2 class="widget-title"><i class="fa fa-folder-open-o">&nbsp;</i>會員專區</h2>
                                 <ul class="arrow nav nav-tabs nav-stacked">
-                                    <li><a href="#">討論區</a></li>
-                                    <li><a href="#">修改個人資料</a></li>
-                                    <li><a href="#">登出</a></li>
+                                    <li><a href="@Url.Action("Index", "Download", new { area = "Front" })">討論區</a></li>
+                                    <li><a href="@Url.Action("Edit", "Member", new { area = "Front" })">修改個人資料</a></li>
+                                    <li><a href="@Url.Action("Logout", "Download", new { area = "Front" })">登出</a></li>
                                 </ul>
                             </div>
                         </div>
