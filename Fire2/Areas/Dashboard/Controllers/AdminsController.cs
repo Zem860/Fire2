@@ -9,9 +9,12 @@ using System.Web.Mvc;
 using Fire2.Areas.Dashboard.Models;
 using Fire2.Models;
 using Fire2.Areas.Dashboard.Helper;
+using Fire2.Areas.Dashboard.Filter;
 
 namespace Fire2.Areas.Dashboard.Controllers
 {
+    [PermissionFilter]
+
     public class AdminsController : Controller
     {
         private Model1 db = new Model1();

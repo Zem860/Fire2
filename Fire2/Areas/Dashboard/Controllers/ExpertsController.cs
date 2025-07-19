@@ -12,9 +12,12 @@ using Fire2.Areas.Dashboard.Helper;
 using MvcPaging;
 using Fire2.Areas.Dashboard.Models;
 using System.IO;
+using Fire2.Areas.Dashboard.Filter;
 
 namespace Fire2.Areas.Dashboard.Controllers
 {
+    [PermissionFilter]
+
     public class ExpertsController : Controller
     {
         private Model1 db = new Model1();

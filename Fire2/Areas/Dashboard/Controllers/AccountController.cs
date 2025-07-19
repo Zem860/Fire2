@@ -62,10 +62,16 @@ namespace Fire2.Areas.Dashboard.Controllers
                 return RedirectToAction("Index", "Account", new { area = "Dashboard" });
             }
 
+            var simpleAdmin = new
+            {
+                Id = admin.Id,
+                Name = admin.Account,
+            };
+
             //登入成功
             //驗鄭成功就做表單驗證
-            string userData = JsonConvert.SerializeObject(admin);
-            FormsAuthentication.SetAuthCookie(admin.Account, false);
+            string userData = JsonConvert.SerializeObject(simpleAdmin);
+            FormsAuthentication.SetAuthCookie(userData, false);
 
             return RedirectToAction("Index", "Home");
         }

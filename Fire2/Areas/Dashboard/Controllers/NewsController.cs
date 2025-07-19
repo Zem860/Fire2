@@ -15,9 +15,12 @@ using Fire2.Migrations;
 using MvcPaging;
 using Fire2.Models;
 using Fire2.Areas.Dashboard.Models;
+using Fire2.Areas.Dashboard.Filter;
 
 namespace Fire2.Areas.Dashboard.Controllers
 {
+    [PermissionFilter]
+
     public class NewsController : Controller
     {
         private Model1 db = new Model1();

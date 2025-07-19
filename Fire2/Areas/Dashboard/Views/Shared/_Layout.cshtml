@@ -53,15 +53,12 @@
     <div class="container-fluid">
         <div class="row">
             <!-- 左側 Sidebar (md以上固定顯示) -->
-            <nav class="col-md-3 col-lg-2 d-none d-md-block bg-light sidebar" style="min-height: 100vh;">
+            @*<nav class="col-md-3 col-lg-2 d-none d-md-block bg-light sidebar" style="min-height: 100vh;">
                 <div class="pt-3 px-3">
                     <h5>Menu</h5>
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             @Html.ActionLink("首頁", "Index", "Home", new { area = "Dashboard" }, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item">
-                            @Html.ActionLink("關於", "About", "Home", new { area = "Dashboard" }, new { @class = "nav-link" })
                         </li>
                         <li class="nav-item">
                             @Html.ActionLink("關於頁內文", "Index", "AboutPageContents", new { area = "Dashboard" }, new { @class = "nav-link" })
@@ -72,6 +69,17 @@
                         <li class="nav-item">
                             @Html.ActionLink("新聞", "Index", "News", new { area = "Dashboard" }, new { @class = "nav-link" })
                         </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("管理員", "Index", "Admins", new { area = "Dashboard" }, new { @class = "nav-link" })
+                        </li>
+                    </ul>
+                </div>
+            </nav>*@
+            <nav class="col-md-3 col-lg-2 d-none d-md-block bg-light sidebar" style="min-height: 100vh;">
+                <div class="pt-3 px-3">
+                    <h5>Menu</h5>
+                    <ul class="nav flex-column">
+                        @Html.Raw(ViewBag.Side)
                     </ul>
                 </div>
             </nav>
