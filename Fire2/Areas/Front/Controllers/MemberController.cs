@@ -26,10 +26,6 @@ namespace Fire2.Areas.Front.Controllers
         }
         public ActionResult Login()
         {
-            if (Session["User"] != null)
-            {
-                return RedirectToAction("Download");
-            }
             return View();
         }
         public ActionResult Register()
