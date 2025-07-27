@@ -62,6 +62,32 @@ namespace Fire2.Areas.Dashboard.Controllers
             return View(members);
         }
 
+        public ActionResult RemoveCertificate(int?id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var member = db.Members.Find(id);
+
+
+
+            if (!string.IsNullOrEmpty(member.InternationalCertificatePath)){ 
+            
+                string physicalPath = Server.MapPath("~/" + member.InternationalCertificatePath);
+                if (System.IO.File.Exists(physicalPath))
+                {
+                    System.IO.File.Delete(physicalPath);
+                }
+                member.InternationalCertificatePath = null; // 清除路徑
+            };
+            //我在上傳檔案的時候應該要先亂碼並且儲存亂碼名稱
+            db.SaveChanges();
+
+            return RedirectToAction("Edit", new { id = id, area = "Dashboard" });
+        }
+
         // GET: Dashboard/Members/Edit/5
         public ActionResult Edit(int? id)
         {
