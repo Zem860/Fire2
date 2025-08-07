@@ -1,4 +1,6 @@
-﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable< Fire2.Areas.Front.Models.Members>>
+﻿@using MvcPaging;
+
+@inherits System.Web.Mvc.WebViewPage<IPagedList<Fire2.Areas.Front.Models.Members>>
 @using System.Web.Mvc
 @using System.Web.Mvc.Html
 
@@ -18,8 +20,8 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model=>model.FirstOrDefault().Gender)
-        </th>        
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Gender)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().Email)
         </th>
@@ -58,10 +60,17 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })|
+                @Html.ActionLink("ServiceHistories", "Index", new { id = item.Id }) |
             </td>
         </tr>
 
     }
+
 </table>
+
+<div class="paging text-center">
+    <div class="pager paging text-center pagination">
+        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+    </div>
+</div>

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Fire2.Areas.Dashboard.Filter;
 using Fire2.Areas.Front.Models;
 using Fire2.Models;
+using MvcPaging;
 
 namespace Fire2.Areas.Dashboard.Controllers
 {
@@ -19,9 +20,27 @@ namespace Fire2.Areas.Dashboard.Controllers
         private Model1 db = new Model1();
 
         // GET: Dashboard/Members
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.Members.ToList());
+            var members = db.Members.OrderByDescending(m => m.CreatedAt).AsQueryable();
+            if (!page.HasValue)
+            {
+                page = 0;
+                //套件邏輯規定第一頁=0
+            }
+            else
+            {
+                page--;
+            }
+
+            int pageSize = 3;
+
+            // ✅ 重點：ToPagedList 產生 IPagedList 物件
+            var pagedMembers = members.ToPagedList(page.Value, pageSize);
+
+            return View(pagedMembers); // ✅ 型別正確：IPagedList<Members>
+            //return View(members.ToPagedList(page.Value, pageSize));
+            //return View(db.Members.ToList());
         }
 
         // GET: Dashboard/Members/Details/5
