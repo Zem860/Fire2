@@ -1,0 +1,153 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Fire2.Areas.Front.Models.Members>
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+
+
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Edit", "Members", FormMethod.Post, new
+{
+    enctype = "multipart/form-data",
+    area = "Dashboard"
+}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Id, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div>
+            @Html.DisplayFor(model => model.Id, "", new { htmAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Account, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Account, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.PasswordHash, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="password" class="form-control" value="@Model.PasswordHash" readonly />
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EnumDropDownListFor(model => model.Gender, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Birthday, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBox("Birthday", Model.Birthday.ToString("yyyy-MM-dd"), new { @class = "form-control", type = "date" })
+            @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.MembershipType, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EnumDropDownListFor(model => model.MembershipType, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MembershipType, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Phone, new { @class = "control-label col-md-2" })
+            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Mobile, new { @class = "control-label col-md-2" })
+            @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Address, new { @class = "control-label col-md-2" })
+            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Email, new { @class = "control-label col-md-2" })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.IsInternationalMember, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.CheckBoxFor(model => model.IsInternationalMember, new { @class = "control-label col-md-2" })
+        </div>
+    </div>
+
+
+    <div class="form-group" id="certificateSection" style="display: @(Model.IsInternationalMember ? "block" : "none")">
+        @Html.Label("上傳國際會員證明", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="CertificateFile" class="form-control" />
+            <a href="@Url.Action("RemoveCertificate", "Members", new { area = "Dashboard",id= Model.Id})">移除檔案</a>
+            @if (!string.IsNullOrEmpty(Model.InternationalCertificatePath))
+            {
+                <p class="mt-2">
+                    ✅ 已上傳檔案：
+                    <a href="@Url.Content("~/" + Model.InternationalCertificatePath)" target="_blank">
+                        下載證明
+                    </a>
+                </p>
+            }
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model=>model.CurrentOrgnization, htmlAttributes: new {@class="control-label col-md-2"})
+        <div class="col-md-10">
+            @Html.TextBoxFor(model=>model.CurrentOrgnization, new {@class="form-control"})
+            @Html.ValidationMessageFor(model=>model.CurrentOrgnization, "", new {@class="text-danger"})
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model=>model.JobTitle, htmlAttributes:new {@class="control-label col-md-2"})
+        <div class="col-md-10">
+            @Html.TextBoxFor(model=>model.JobTitle, new {@class="form-control"})
+            @Html.ValidationMessageFor(model=>model.JobTitle, "",new {@class="text-danger"})
+        </div>
+    </div>
+
+    <div class="form-group">
+        相關年資合計
+        <div class="col-md-10">
+            @Html.LabelFor(model => model.TotalYears, htmlAttributes: new { @class = "control-label " })
+            @Html.TextBoxFor(model => model.TotalYears, new { @class = "form-control" })
+            @Html.LabelFor(model => model.TotalMonths, htmlAttributes: new { @class = "control-label " })
+            @Html.TextBoxFor(model => model.TotalMonths, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+}
