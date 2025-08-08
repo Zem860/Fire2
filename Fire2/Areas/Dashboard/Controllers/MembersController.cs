@@ -43,6 +43,14 @@ namespace Fire2.Areas.Dashboard.Controllers
             //return View(db.Members.ToList());
         }
 
+
+        //
+
+        public ActionResult ServiceHistories(int id, int? page)
+        {
+            return View();
+        }
+
         // GET: Dashboard/Members/Details/5
         public ActionResult Details(int? id)
         {

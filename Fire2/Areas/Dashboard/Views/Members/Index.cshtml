@@ -31,7 +31,6 @@
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().UpdatedAt)
         </th>
-
     </tr>
 
     @foreach (var item in Model)
@@ -61,7 +60,7 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })|
-                @Html.ActionLink("ServiceHistories", "Index", new { id = item.Id }) |
+                @Html.ActionLink("ServiceHistories", "ServiceHistories", new { id = item.Id }) |
             </td>
         </tr>
 
