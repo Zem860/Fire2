@@ -19,6 +19,8 @@ using Fire2.Areas.Dashboard.Filter;
 
 namespace Fire2.Areas.Dashboard.Controllers
 {
+    [DashboardAuthorize]
+
     [PermissionFilter]
 
     public class NewsController : Controller

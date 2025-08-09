@@ -6,11 +6,16 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Fire2.Areas.Dashboard.Filter;
+using Fire2.Areas.Dashboard.Helper;
 using Fire2.Areas.Front.Models;
 using Fire2.Models;
 
 namespace Fire2.Areas.Dashboard.Controllers
 {
+    [DashboardAuthorize]
+    [PermissionFilter]
+
     public class AboutPageContentsController : Controller
     {
         private Model1 db = new Model1();
