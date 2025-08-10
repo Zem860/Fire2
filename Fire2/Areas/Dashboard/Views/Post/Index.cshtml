@@ -1,0 +1,53 @@
+﻿@using MvcPaging
+@using Fire2.Areas.Dashboard.Helper
+@inherits System.Web.Mvc.WebViewPage<IPagedList<Fire2.Areas.Front.Models.Posts>>
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+
+@{
+    Layout = "~/Areas/Dashboard/Views/Shared/_Layout.cshtml";
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Template styles-->
+    <link rel="stylesheet" href="~/Content/css/style.css">
+    <link rel="stylesheet" href="~/Content/css/owl.theme.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h2>Index</h2>
+        <table class="table table-sm mt-4">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Title)</th>
+                <th>發文者</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().CreatedAt)
+                </th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().UpdatedAt)</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(model => item.Title)</td>
+                    <td>@Html.DisplayFor(model=>item.Member.Account)</td>
+                    <td>@Html.DisplayFor(model => item.CreatedAt)</td>
+                    <td>@Html.DisplayFor(model => item.UpdatedAt)</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <div class="d-flex justify-content-center mt-4">
+            <div class="pager paging text-center pagination">
+                @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+            </div>
+        </div>
+    </div>
+</body>
+</html>
