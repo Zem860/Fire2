@@ -2,8 +2,6 @@
 @using System.Web.Mvc
 @using System.Web.Mvc.Html
 
-
-
 <h2>Edit</h2>
 
 @using (Html.BeginForm("Edit", "Members", FormMethod.Post, new
@@ -13,6 +11,9 @@
 }))
 {
     @Html.AntiForgeryToken()
+
+    @* 主鍵一定要送出 *@
+    @Html.HiddenFor(m => m.Id)
 
     <div class="form-group">
         @Html.LabelFor(model => model.Id, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -64,7 +65,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBoxFor(model => model.Phone, new { @class = "control-label col-md-2" })
+            @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -72,7 +73,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBoxFor(model => model.Mobile, new { @class = "control-label col-md-2" })
+            @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -80,14 +81,14 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBoxFor(model => model.Address, new { @class = "control-label col-md-2" })
+            @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBoxFor(model => model.Email, new { @class = "control-label col-md-2" })
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -103,9 +104,10 @@
         @Html.Label("上傳國際會員證明", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             <input type="file" name="CertificateFile" class="form-control" />
-            <a href="@Url.Action("RemoveCertificate", "Members", new { area = "Dashboard",id= Model.Id})">移除檔案</a>
             @if (!string.IsNullOrEmpty(Model.InternationalCertificatePath))
             {
+                <a href="@Url.Action("RemoveCertificate", "Members", new { area = "Dashboard",id= Model.Id})">移除檔案</a>
+
                 <p class="mt-2">
                     ✅ 已上傳檔案：
                     <a href="@Url.Content("~/" + Model.InternationalCertificatePath)" target="_blank">
@@ -116,18 +118,26 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(model=>model.CurrentOrgnization, htmlAttributes: new {@class="control-label col-md-2"})
+        @Html.LabelFor(model => model.CurrentOrgnization, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBoxFor(model=>model.CurrentOrgnization, new {@class="form-control"})
-            @Html.ValidationMessageFor(model=>model.CurrentOrgnization, "", new {@class="text-danger"})
+            @Html.TextBoxFor(model => model.CurrentOrgnization, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CurrentOrgnization, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model=>model.JobTitle, htmlAttributes:new {@class="control-label col-md-2"})
+        @Html.LabelFor(model => model.JobTitle, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBoxFor(model=>model.JobTitle, new {@class="form-control"})
-            @Html.ValidationMessageFor(model=>model.JobTitle, "",new {@class="text-danger"})
+            @Html.TextBoxFor(model => model.JobTitle, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.JobTitle, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.HighestEducation, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.HighestEducation, htmlAttributes: new { @class = "form-contrl" })
+            @Html.ValidationMessageFor(model => model.HighestEducation, "", new { @class = "text-danger" })
         </div>
     </div>
 
