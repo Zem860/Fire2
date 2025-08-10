@@ -1,0 +1,83 @@
+﻿
+@using MvcPaging;
+@inherits System.Web.Mvc.WebViewPage<IPagedList<Fire2.Areas.Front.Models.ServiceHistory>>
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+
+<h2>服務經歷</h2>
+<p>筆數：@Model.Count()</p>
+<head>
+    <!-- Template styles-->
+    <link rel="stylesheet" href="~/Content/css/style.css">
+    <link rel="stylesheet" href="~/Content/css/owl.theme.css">
+</head>
+<body>
+
+    <div class="container mt-3">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().ServiceUnit)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().JobTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().StartYear)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().StartMonth)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().EndYear)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().EndMonth)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ServiceUnit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.JobTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartYear)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndYear)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartMonth)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndMonth)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "ServiceHistoryEdit", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "ServiceHistoryDelete", new { id = item.Id })|
+                    </td>
+                </tr>
+
+            }
+
+        </table>
+
+        <div class="paging text-center">
+            <div class="pager paging text-center pagination">
+                @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+            </div>
+        </div>
+    </div>
+
+</body>
