@@ -17,7 +17,7 @@ using MvcPaging;
 namespace Fire2.Areas.Dashboard.Controllers
 {
     [PermissionFilter]
-
+    
     public class MembersController : Controller
     {
         private Model1 db = new Model1();
@@ -40,12 +40,8 @@ namespace Fire2.Areas.Dashboard.Controllers
 
             // ✅ 重點：ToPagedList 產生 IPagedList 物件
             var pagedMembers = members.ToPagedList(page.Value, pageSize);
-
             return View(pagedMembers); // ✅ 型別正確：IPagedList<Members>
-            //return View(members.ToPagedList(page.Value, pageSize));
-            //return View(db.Members.ToList());
         }
-        //
 
         public ActionResult ServiceHistories(int id, int? page)
         {
@@ -62,8 +58,6 @@ namespace Fire2.Areas.Dashboard.Controllers
             var pagedServiceHistory = sh.ToPagedList(page.Value, pageSize);
 
             return View(pagedServiceHistory);
-
-            //return View(sh);
         }
         public ActionResult ServiceHistoryEdit(int? id)
         {
@@ -77,7 +71,36 @@ namespace Fire2.Areas.Dashboard.Controllers
 
         public ActionResult ServiceHistoryDelete(int? id)
         {
-            return View();
+            var sh = db.ServiceHistories.Find(id);
+            if (sh == null)
+            {
+                return HttpNotFound();
+            }
+            
+            return View(sh);
+        }
+
+        [HttpPost, ActionName("ServiceHistoryDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult ServiceHistoryDeleteConfirm(int? id)
+        {
+            if (id == null) return new HttpStatusCodeResult(400);
+
+            var sh = db.ServiceHistories.Find(id);
+            if (sh == null) return HttpNotFound();
+
+            var memberId = sh.MemberId;   // 先存起來，刪掉後就拿不到了
+
+            db.ServiceHistories.Remove(sh);
+            db.SaveChanges();
+
+            // 帶「Member 的 Id」回列表頁
+
+            // 產生實際 URL（除錯時可看這個字串）
+            var url = Url.Action("ServiceHistories", "Members",
+                new { area = "Dashboard", id = memberId });
+
+            return Redirect(url); // 或 RedirectToAction("ServiceHistories", new { area="Dashboard", id = memberId });
         }
 
 
@@ -197,7 +220,6 @@ namespace Fire2.Areas.Dashboard.Controllers
             var mms = db.Members.Find(members.Id);
             if (ModelState.IsValid)
             {
-
                 mms.Account = members.Account;
                 mms.Name = members.Name;
                 mms.Gender = members.Gender;
@@ -228,7 +250,6 @@ namespace Fire2.Areas.Dashboard.Controllers
 
                         if (CertificateFile != null && CertificateFile.ContentLength > 0)
                         {
-
                             var physicalPath = Server.MapPath("~/Uploads/Certificates/" + fileName);
                             CertificateFile.SaveAs(physicalPath);
                         }
@@ -263,13 +284,18 @@ namespace Fire2.Areas.Dashboard.Controllers
             return View(members);
         }
 
-        // POST: Dashboard/Members/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Members members = db.Members.Find(id);
-            db.Members.Remove(members);
+            var member = db.Members.Find(id);
+            if (member == null) return HttpNotFound();
+
+            // 先把這位會員的留言刪掉
+            var comments = db.Comments.Where(c => c.MemberId == id).ToList();
+            db.Comments.RemoveRange(comments);
+
+            db.Members.Remove(member);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
