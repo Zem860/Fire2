@@ -166,6 +166,8 @@ namespace Fire2.Areas.Front.Controllers
                     FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
                     comments.MemberId = Convert.ToInt32(ticket.Name);
                     comments.PostId = PostId; // 設定留言的 PostId 為當前文章的 Id
+                    comments.CreateDate = DateTime.UtcNow;
+                    comments.UpdateDate = DateTime.UtcNow;
                 }
                 else
                 {

@@ -1,0 +1,58 @@
+﻿@using MvcPaging
+@using Fire2.Areas.Dashboard.Helper
+@inherits System.Web.Mvc.WebViewPage<IEnumerable<Fire2.Areas.Front.Models.Comments>>
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+
+@{
+    Layout = "~/Areas/Dashboard/Views/Shared/_Layout.cshtml";
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Template styles-->
+    <link rel="stylesheet" href="~/Content/css/style.css">
+    <link rel="stylesheet" href="~/Content/css/owl.theme.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h2>Index</h2>
+
+        <table class="table table-sm mt-4">
+            <tr>
+                <th>Po文標題</th>
+                <th> @Html.DisplayFor(model=>model.FirstOrDefault().Member.Account)</th>  
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().CommentContent)</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().CreateDate)
+                </th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().UpdateDate)</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(model=>item.Post.Title)</td>
+                    <td>@Html.DisplayFor(model => item.Member.Account)</td>
+                    <td>
+                        @Html.Raw(UtilHelper.ExtractFirstCleanParagraph(item.CommentContent))
+                    </td>
+                    <td>@Html.DisplayFor(model => item.CreateDate)</td>
+                    <td>@Html.DisplayFor(model => item.UpdateDate)</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </table>
+
+        @*<div class="d-flex justify-content-center mt-4">
+                <div class="pager paging text-center pagination">
+                    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                </div>
+            </div>*@
+    </div>
+</body>
+</html>
