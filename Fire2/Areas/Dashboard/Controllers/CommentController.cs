@@ -13,6 +13,7 @@ using Fire2.Models;
 
 namespace Fire2.Areas.Dashboard.Controllers
 {
+    [DashboardAuthorize]
     [PermissionFilter]
     public class CommentController : Controller
     {
@@ -23,14 +24,18 @@ namespace Fire2.Areas.Dashboard.Controllers
         {
             var comments = db.Comments
                 .Include("Member")
-                .Include("Post").OrderByDescending(c=>c.Post.CreatedAt)
-                .ThenByDescending(c=>c.Post.Title).ToList();
+                .Include("Post").OrderByDescending(c => c.Post.CreatedAt)
+                .ThenByDescending(c => c.Post.Title).ToList();
             return View(comments);
         }
 
         public ActionResult Edit(int id)
         {
             var comment = db.Comments.Find(id);
+            if (comment == null)
+            {
+                return HttpNotFound();
+            }
             return View(comment);
         }
 
@@ -68,6 +73,32 @@ namespace Fire2.Areas.Dashboard.Controllers
 
             // ⬇️ 上傳失敗時的回傳格式
             return Content("<script>alert('圖片上傳失敗');</script>", "text/html");
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var comment = db.Comments
+    .Include("Member")
+    .Include("Post").OrderByDescending(c => c.Post.CreatedAt)
+    .ThenByDescending(c => c.Post.Title).FirstOrDefault(c => c.Id == id);
+            if (comment == null)
+            {
+                return HttpNotFound();
+            }
+            return View(comment);
+        }
+
+        public ActionResult DeleteConfirmed(int id)
+        {
+            var comment = db.Comments.Find(id);
+            if(comment == null)
+            {
+                return HttpNotFound();
+            }
+            db.Comments.Remove(comment);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }

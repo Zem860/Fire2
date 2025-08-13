@@ -1,0 +1,64 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Fire2.Areas.Front.Models.Comments>
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Comments</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Post.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Member.Account)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Member.Account)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CommentContent)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model?.CommentContent ?? "")
+        </dd>
+
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdateDate)
+        </dd>
+
+
+    </dl>
+    @using (Html.BeginForm("DeleteConfirmed", "Comment", new { id = Model.Id, area = "Dashboard" }, FormMethod.Post, null))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(c => c.Id)
+        <input type="submit" value="DeleteConfirm" class="btn btn-default" />
+        @Html.ActionLink("Back to List", "Index")
+    }
+</div>
+
