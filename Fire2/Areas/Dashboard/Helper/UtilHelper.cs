@@ -69,27 +69,47 @@ namespace Fire2.Areas.Dashboard.Helper
         //    HttpContext.Current.Response.Cookies.Add(authenticationcookie);
 
         //}
-        public static void SetAuthenTicket(string userData, string userId, string cookieName = null)
+        public static class AuthCookieWriter
         {
-            // 如果沒有指定，用區域判斷
-            if (string.IsNullOrEmpty(cookieName))
+            // 前台：沿用 Web.config 的 FormsAuth 設定（含 name 與 path）
+            public static void SetFrontTicket(string userId, string userDataJson, int hours = 3, bool isPersistent = false)
             {
-                if (HttpContext.Current.Request.Url.AbsolutePath.StartsWith("/Dashboard", StringComparison.OrdinalIgnoreCase))
-                {
-                    cookieName = ".DashboardAuth";
-                }
-                else
-                {
-                    cookieName = FormsAuthentication.FormsCookieName; // 預設 .ASPXAUTH
-                }
+                var now = DateTime.Now;
+                var baseCookie = FormsAuthentication.GetAuthCookie(userId, isPersistent); // 取到正確 name/path
+                var ticket = new FormsAuthenticationTicket(
+                    1, userId, now, now.AddHours(hours), isPersistent, userDataJson);
+
+                baseCookie.Value = FormsAuthentication.Encrypt(ticket);
+                baseCookie.HttpOnly = true;
+                // baseCookie.Secure = true;         // https 再開
+                // baseCookie.SameSite = SameSiteMode.Lax;
+
+                HttpContext.Current.Response.Cookies.Add(baseCookie);
             }
 
-            var ticket = new FormsAuthenticationTicket(
-                1, userId, DateTime.Now, DateTime.Now.AddHours(3), false, userData);
+            // 後台：自訂一顆不會干擾前台的 cookie
+            public static void SetDashboardTicket(string userId, string userDataJson, int hours = 3, bool isPersistent = false)
+            {
+                var now = DateTime.Now;
+                var ticket = new FormsAuthenticationTicket(
+                    1, userId, now, now.AddHours(hours), isPersistent, userDataJson);
 
-            string encryptedTicket = FormsAuthentication.Encrypt(ticket);
-            var cookie = new HttpCookie(cookieName, encryptedTicket);
-            HttpContext.Current.Response.Cookies.Add(cookie);
+                var cookie = new HttpCookie(".DashboardAuth", FormsAuthentication.Encrypt(ticket))
+                {
+                    HttpOnly = true,
+                    Path = "/Dashboard",
+                    // Secure = true,                 // https 再開
+                    // SameSite = SameSiteMode.Lax
+                };
+                HttpContext.Current.Response.Cookies.Add(cookie);
+            }
+
+            // （可選）統一刪除
+            public static void ClearDashboardCookie()
+            {
+                HttpContext.Current.Response.Cookies.Add(
+                    new HttpCookie(".DashboardAuth") { Expires = DateTime.Now.AddDays(-1), Path = "/Dashboard" });
+            }
         }
 
 

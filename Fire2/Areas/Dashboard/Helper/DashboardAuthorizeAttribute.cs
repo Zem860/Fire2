@@ -1,26 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Fire2.Areas.Dashboard.Helper
 {
     public class DashboardAuthorizeAttribute : AuthorizeAttribute
     {
-        protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
+        protected override bool AuthorizeCore(HttpContextBase context)
         {
-            var url = new UrlHelper(filterContext.RequestContext);
-            //在沒有controller的情況下不會有Url，所以自訂一個去模擬controller
-            //但實際上我要導入到AccountController
-            var loginUrl = url.Action("Index", "Account", new { area = "Dashboard" });
-            //繼承了AuthorizeAttribute它本身就會幫你檢查HttpContext.User.Identity.IsAuthenticated如果是false本來會return401
-            //但是使用override改寫後我把它倒回了
-            filterContext.Result = new RedirectResult(
-                loginUrl
-            );
+            // 從這次請求的 Cookie 拿後台登入那顆
+            var dashboardCookie = context.Request.Cookies[".DashboardAuth"];
+            if (dashboardCookie == null) return false;      // 沒拿到 → 視為未登入
+
+            var ticket = FormsAuthentication.Decrypt(dashboardCookie.Value);
+            return ticket != null && !ticket.Expired;       // 票存在且未過期 → 通過
+        }
+
+        protected override void HandleUnauthorizedRequest(AuthorizationContext fc)
+        {
+            var url = new UrlHelper(fc.RequestContext)
+                .Action("Index", "Account", new { area = "Dashboard" });
+            fc.Result = new RedirectResult(url);
         }
     }
-
-
 }

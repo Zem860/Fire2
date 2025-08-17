@@ -11,6 +11,7 @@ using Fire2.Areas.Front.Models;
 using Fire2.Models;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
+using static Fire2.Areas.Dashboard.Helper.UtilHelper;
 
 namespace Fire2.Areas.Dashboard.Controllers
 {
@@ -24,56 +25,31 @@ namespace Fire2.Areas.Dashboard.Controllers
             return View();
         }
 
-        [AllowAnonymous]
-        //public ActionResult Logout()
-        //{
-        //    FormsAuthentication.SignOut();
-        //    return RedirectToAction("Index");
-        //}
-        public ActionResult Logout()
+        [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
+        public ActionResult Login(LoginVm m)
         {
-            if (Request.Cookies[".DashboardAuth"] != null)
-            {
-                var cookie = new HttpCookie(".DashboardAuth")
-                {
-                    Expires = DateTime.Now.AddDays(-1)
-                };
-                Response.Cookies.Add(cookie);
-            }
+            var admin = ValidateUser(m.Account, m.PasswordHash);   // 用明碼 Password
+            if (admin == null) return View("Index", m);
 
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Account");
+            var json = JsonConvert.SerializeObject(new { Id = admin.Id, Account = admin.Account });
+            var ticket = new FormsAuthenticationTicket(
+                1, admin.Name, DateTime.Now, DateTime.Now.AddHours(3), false, json);
+
+            Response.Cookies.Add(new HttpCookie(".DashboardAuth", FormsAuthentication.Encrypt(ticket))
+            {
+                HttpOnly = true,
+                Path = "/Dashboard"
+            });
+
+            return RedirectToAction("Index", "Home", new { area = "Dashboard" });
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginVm login)
+        [AllowAnonymous]
+        public ActionResult Logout()
         {
-            if (!ModelState.IsValid)
-            {
-                return View("Index", login);
-            }
-
-            Admins admin = ValidateUser(login.Account, login.PasswordHash);
-            //只要是null都是失敗
-            if (admin == null)
-            {
-                ViewBag.Message = "登入失敗";
-                return RedirectToAction("Index", "Account", new { area = "Dashboard" });
-            }
-
-            var simpleAdmin = new
-            {
-                Id = admin.Id,
-                Name = admin.Account,
-            };
-
-            //登入成功
-            //驗鄭成功就做表單驗證
-            string userData = JsonConvert.SerializeObject(simpleAdmin);
-            FormsAuthentication.SetAuthCookie(userData, false);
-
-            return RedirectToAction("Index", "Home");
+            Response.Cookies.Add(new HttpCookie(".DashboardAuth") { Expires = DateTime.Now.AddDays(-1), Path = "/Dashboard" });
+            FormsAuthentication.SignOut(); // 清前台那顆（若有）
+            return RedirectToAction("Index", "Account", new { area = "Dashboard" });
         }
 
         private Admins ValidateUser(string account, string password)

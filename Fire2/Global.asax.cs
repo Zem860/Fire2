@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Security;
 
 namespace Fire2
 {
@@ -17,5 +18,20 @@ namespace Fire2
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        protected void Application_Error()
+        {
+            var exception = Server.GetLastError();
+
+            if (exception is HttpAntiForgeryException)
+            {
+                FormsAuthentication.SignOut();
+                Session.Clear();
+
+                Response.Clear();
+                Response.Redirect("~/Front/Member/Login", true);
+            }
+        }
+
     }
 }

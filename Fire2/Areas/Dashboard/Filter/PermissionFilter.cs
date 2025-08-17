@@ -14,17 +14,27 @@ namespace Fire2.Areas.Dashboard.Filter
 {
     public class PermissionFilter : ActionFilterAttribute
     {
+        private void GoLogin(ActionExecutingContext fc)
+        {
+            var url = new UrlHelper(fc.RequestContext).Action("Index", "Account", new { area = "Dashboard" });
+            fc.Result = new RedirectResult(url); // ← 這行才是真的「擋下並跳走」
+        }
+
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+
             Model1 db = new Model1();
-            if (!HttpContext.Current.User.Identity.IsAuthenticated)
-            {
-                filterContext.Controller.ViewBag.Side = "";
-                return;
-            }
-            string userData = ((FormsIdentity)(HttpContext.Current.User.Identity)).Name;
-            var userDataObj = JsonConvert.DeserializeObject<Admins>(userData);
-            Admins admin = db.Admins.Find(Convert.ToInt32(userDataObj.Id));
+            var ck = filterContext.HttpContext.Request.Cookies[".DashboardAuth"];
+            if (ck == null) { GoLogin(filterContext); return; }
+
+            var t = FormsAuthentication.Decrypt(ck.Value);
+            if (t == null || t.Expired) { GoLogin(filterContext); return; }
+
+            // ✅ 從 UserData 取 Id（Name 只是顯示字串）
+            dynamic dto = JsonConvert.DeserializeObject(t.UserData);
+            Admins admin = db.Admins.Find((int)dto.Id);
+            if (admin == null) { GoLogin(filterContext); return; }
+
             if (admin == null)
             {
                 FormsAuthentication.SignOut();
