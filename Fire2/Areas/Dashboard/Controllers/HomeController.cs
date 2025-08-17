@@ -21,7 +21,9 @@ namespace Fire2.Areas.Dashboard.Controllers
         public ActionResult Index()
         {
             // 取得目前的 FormsAuthentication Ticket
-            var authCookie = System.Web.HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
+            //var authCookie = System.Web.HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
+            var authCookie = Request.Cookies[".DashboardAuth"];    // ← 讀後台那顆
+
             if (authCookie == null)
             {
                 // 沒有 cookie，導回後台登入
@@ -31,8 +33,9 @@ namespace Fire2.Areas.Dashboard.Controllers
             try
             {
                 // 解密 cookie
+
                 var ticket = FormsAuthentication.Decrypt(authCookie.Value);
-                string rawUserData = ticket.Name; // 我假設 Name 存的是 Admin 的 Id
+                string rawUserData = ticket.UserData; // 我假設 Name 存的是 Admin 的 Id
                 var userData = JsonConvert.DeserializeObject<Admins>(rawUserData);
                 var db = new Model1();
 
