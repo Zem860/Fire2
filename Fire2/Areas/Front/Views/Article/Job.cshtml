@@ -4,7 +4,6 @@
     Layout = "~/Areas/Front/Views/Shared/_Layout.cshtml";
 }
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,25 +19,25 @@
 
     <!-- Favicons
     ================================================== -->
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="~/Content/images/favicon.ico" type="image/x-icon" />
 
     <!-- CSS
     ================================================== -->
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css">
     <!-- Template styles-->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="~/Content/css/style.css">
     <!-- Responsive styles-->
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="~/Content/css/responsive.css">
     <!-- FontAwesome -->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/css/font-awesome.min.css">
     <!-- Animation -->
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="~/Content/css/animate.css">
     <!-- Owl Carousel -->
-    <link rel="stylesheet" href="css/owl.carousel.css">
-    <link rel="stylesheet" href="css/owl.theme.css">
+    <link rel="stylesheet" href="~/Content/css/owl.carousel.css">
+    <link rel="stylesheet" href="~/Content/css/owl.theme.css">
     <!-- Colorbox -->
-    <link rel="stylesheet" href="css/colorbox.css">
+    <link rel="stylesheet" href="~/Content/css/colorbox.css">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
@@ -60,7 +59,7 @@
                             <ul class="breadcrumb">
                                 <li>首頁</li>
                                 <li>關於我們</li>
-                                <li><a href="#"> 專家介紹</a></li>
+                                <li><a href="#"> 關於我們</a></li>
                             </ul>
                         </div>
                     </div>
@@ -73,51 +72,60 @@
                 <div class="row">
 
                     <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+
                         <div class="sidebar sidebar-right">
+
                             <div class="widget">
-                                <h2 class="widget-title"><i class="fa fa-folder-open-o">&nbsp;</i>關於我們</h2>
+                                <h2 class="widget-title"><i class="fa fa-folder-open-o">&nbsp;</i>協會業務</h2>
                                 <ul class="arrow nav nav-tabs nav-stacked">
-                                    @foreach (var item in ViewBag.SidebarData)
-                                    {
-                                        <li>
-                                            <a href="@item.Link">@item.Title</a>
-                                        </li>
-                                    }
+                                    <li class="active"><a href="/Article/Job">協會業務</a></li>
+                                    <li><a href="/Article/Licenses">訓練、認證、發照</a></li>
+                                    <li><a href="/Article/Refer">諮詢、顧問</a></li>
+                                    <li><a href="/Article/Survey">縱火調查</a></li>
                                 </ul>
-                            </div><!-- Categories end -->
+                            </div>
+
+                            <!-- Categories end -->
 
                         </div><!-- Sidebar end -->
                     </div><!-- Sidebar Col end -->
 
                     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 
-                        <h2 class="page-title">專家介紹</h2>
+                        <h2 class="page-title">協會業務</h2>
                         <hr class="botmargin-min">
-
                         <!-- 內容開始 -->
-                        <div class="row">
-                            @foreach (var experts in ViewBag.ExpertsData)
-                            {
-                                <div class="col-md-4">
-                                    <div class="ts-service-wrapper">
-                                        <div class="ts-service-image-wrapper">
-                                            <span class="ts-service-image">
-                                                <a href="@Url.Action("ExpertDetail", "Article", new { area = "Front", id = experts.Id })" title=@experts.Name><img class="img-fluid" style="height: 300px;width:250px; object-fit: cover;" src=@experts.ImgUrl alt=@experts.Name></a>
-                                            </span>
-                                        </div>
-                                        <div class="ts-service-info">
-                                            <h3><a href="master_show.html">@experts.Name</a></h3>
-                                            <p>現職：@experts.Title </p>
-                                        </div>
-                                    </div>
-                                </div><!-- Col 1 end -->
-                            }
-                        </div>
+
+
+                        <p>受委託辦理，本協會授權對外聯絡窗口：</p>
+
+                        <p>
+                            本協會電子信箱&nbsp;&nbsp;<span style="color: rgb(102, 102, 102); font-family: Arial, sans-serif; white-space: nowrap;">iaaitw119@gmail.com</span><br>
+                            我們的Line 官方帳號登場囉，https://lin.ee/5wlOiRP<br>
+                            有想聯繫我們的朋友也可透過官方帳號聯繫唷!!!
+                        </p>
+
+                        <p><img alt="" src="&lt;img src=&quot;https://qr-official.line.me/gs/M_mll4051b_GW.png?oat_content=qr&quot;&gt;"><a href="&lt;img src=&quot;https://qr-official.line.me/gs/M_mll4051b_GW.png?oat_content=qr&quot;&gt;"><img alt="" src="https://qr-official.line.me/gs/M_mll4051b_GW.png?oat_content=qr"></a><img alt="" src="img src=&quot;https://qr-official.line.me/gs/M_mll4051b_GW.png?oat_content=qr&quot;"></p>
+
+                        <p>=========================</p>
+
+                        <p><span style="color: rgb(85, 85, 85); font-family: Roboto, 微軟正黑體, sans-serif; font-size: 14px;">國際縱火調查人員協會 台灣分會</span></p>
+
+                        <p><span style="color: rgb(85, 85, 85); font-family: Roboto, 微軟正黑體, sans-serif; font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></p>
+
+                        <p style="box-sizing: border-box; margin: 0px 0px 10px; font-family: Roboto, 微軟正黑體, sans-serif; text-rendering: optimizeLegibility; line-height: 24px; color: rgb(85, 85, 85); font-size: 14px; -webkit-font-smoothing: antialiased !important;">統一編號：41119045</p>
+
+                        <p style="box-sizing: border-box; margin: 0px 0px 10px; font-family: Roboto, 微軟正黑體, sans-serif; text-rendering: optimizeLegibility; line-height: 24px; color: rgb(85, 85, 85); font-size: 14px; -webkit-font-smoothing: antialiased !important;">&nbsp;</p>
+
+
+
+
+                        <!-- Content row 1 end -->
                         <!-- 內容結束 -->
 
                         <div class="tags-area clearfix">
 
-                            <div class="share-items pull-right">
+                            <div class="share-items pull-right" style="display: none">
                                 <ul class="post-social-icons unstyled">
                                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -164,7 +172,7 @@
             </div><!--/ Container end -->
         </footer><!-- Footer end -->
         <!-- Javascript Files
-    ================================================== -->
+        ================================================== -->
         <!-- initialize jQuery Library -->
         <script type="text/javascript" src="js/jquery.js"></script>
         <!-- Bootstrap jQuery -->

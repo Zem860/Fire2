@@ -12,6 +12,28 @@ namespace Fire2.Areas.Front.Controllers
         // GET: Front/About
         private Model1 db = new Model1();
 
+        public ActionResult Job()
+        {
+            return View();
+        }
+
+        public ActionResult Licenses()
+        {
+            return View();
+        }
+
+        public ActionResult Refer()
+        {
+
+            return View();
+        }
+
+        public ActionResult Survey()
+        {
+
+            return View();
+        }
+
         public ActionResult Index()
         {
             return View();
