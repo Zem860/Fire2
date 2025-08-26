@@ -1,0 +1,70 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Fire2.Areas.Front.Models.Knowledge>
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+
+
+<h2>Knowledge</h2>
+
+<div>
+    <h4>Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CoverPhoto)
+        </dt>
+
+        <dt>@Html.DisplayNameFor(model => model.SubTitle)</dt>
+        <dd>@Html.DisplayFor(model => model.SubTitle)</dd>
+
+        @{
+            var cover = string.IsNullOrWhiteSpace(Model.CoverPhoto)
+                ? "https://upload.wikimedia.org/wikipedia/commons/d/d6/Nophoto.jpg"
+                : Url.Content(Model.CoverPhoto);
+        }
+        <dt>@Html.DisplayNameFor(m => m.CoverPhoto)</dt>
+        <dd>
+            <img src="@cover" alt="封面圖片" style="max-height:150px;object-fit:cover;" />
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.Content)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedAt)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

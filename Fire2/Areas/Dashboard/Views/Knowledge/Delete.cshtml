@@ -1,0 +1,79 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Fire2.Areas.Front.Models.Knowledge>
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Posts</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>@Html.DisplayNameFor(model => model.SubTitle)</dt>
+        <dd>@Html.DisplayFor(model => model.SubTitle)</dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CoverPhoto)
+        </dt>
+
+
+        @{
+            var cover = string.IsNullOrWhiteSpace(Model.CoverPhoto)
+                ? "https://upload.wikimedia.org/wikipedia/commons/d/d6/Nophoto.jpg"
+                : Url.Content(Model.CoverPhoto);
+        }
+        <dt>@Html.DisplayNameFor(m => m.CoverPhoto)</dt>
+        <dd>
+            <img src="@cover" alt="封面圖片" style="max-height:150px;object-fit:cover;" />
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.Content)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedAt)
+        </dd>
+
+    </dl>
+
+
+    @using (Html.BeginForm("Delete", "Knowledge", new { id = Model.Id, area = "Dashboard" }, FormMethod.Post, null))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Id)
+        <input type="submit" value="DeleteConfirm" class="btn btn-default" />
+        @Html.ActionLink("Back to List", "Index")
+    }
+
+</div>
+
+
+
